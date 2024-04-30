@@ -1,0 +1,50 @@
+
+/*make all the inputs width 100% */
+input{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+}
+
+.verb{
+    color:rgb(251, 137, 137);
+    /*outline the text, give it shadow*/
+    text-shadow: 2px 2px 5px rgb(0, 0, 0);
+}
+
+.noun{
+    color: rgb(151, 229, 255);
+    text-shadow: 2px 2px 5px rgb(0, 0, 0);
+}
+
+.container-section{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+div[id^="guessing"]{
+    background-color: #f0f0f0;
+}
+
+div[id^="germanText"] {
+    visibility: hidden;
+}
+
+div{
+        border: 1px solid #ccc;
+        box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+        margin: 10px 0;
+        padding: 10px;
+}
+
+img{
+    width: 70%;
+    clear: both;
+    margin: auto;
+}
+
+figure{
+    background: #ece9e2;
+}

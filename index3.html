@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>My Portfolio</title>
+    <link rel="stylesheet" href="css/prism.css"/>
+    <link rel="stylesheet" href="css/main.css"/>
+    <link rel="stylesheet" href="css/pageLayout.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous"/>
+</head>
+
+<body>
+<div class="container">
+    <div class="row g-5">
+        <div class="col-md-8">
+            <div>
+                <h2>Zu erweiternde Funktionalität</h2>
+                <p>
+                    Die Funktionalität, die ich erweitern musste, bestand darin, Kunden zu ermöglichen,
+                    wiederkehrende Termine einzuplanen, um Bestandteile der Fernleitungsinfrastruktur zu
+                    kontrollieren/überprüfen.
+                </p>
+                <p>
+                    Die Servicetechniker der Gastdienstleister haben in einem regelmäßigen Zeitintervall all die
+                    Bestandteile der Fernleitungsinfrastrukturanlagen besucht und geprüft. Die Überprüfung wird in
+                    einem Formular festgehalten. Sie können dann auch Teile der Anlage, die Sie geprüft haben, als
+                    mangelhaft markieren und daraus wird automatisch eine Meldung erstellt.
+                </p>
+                <p>Das ermöglichte dem Gasdienstleister diese Übeprüfungstermine einzuplanen, um sich an die
+                    gesetzlichen Regeln zu halten. Und gleichzeitig die Arbeit der Servicetechniker zu übermitteln
+                    und einen Prozess anzustoßen für die Beseitigung von Mängel.
+                </p>
+            </div>
+            <div>
+                <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseUseCase">
+                    Mehr zum Anwendungsfall
+                </button>
+                <figure id="collapseUseCase" class="collapse">
+                    <figcaption>Mehr zum Anwendungsfall</figcaption>
+                    <br>
+                    <p>Dies ermöglichte es dem Gasdienstleister, Überprüfungstermine einzuplanen, um die
+                        gesetzlichen Regeln einzuhalten. Gleichzeitig konnte die Arbeit der Servicetechniker
+                        übermittelt und ein Prozess zur Beseitigung von Mängeln angestoßen werden.</p>
+                    <p>Der Anwendungsfall bestand darin, Anlagen regelmäßig zu überprüfen, was gesetzlich geregelt
+                        war. In einer Anlage konnten mehrere Bestandteile der Fernleitung gehören, wie
+                        Absperrventile, Kugelhähne oder ähnliche Infrastrukturbestandteile. Diese sollten regelmäßig
+                        auf ihre Funktionsfähigkeit überprüft werden, um die Sicherheit zu gewährleisten und
+                        frühzeitig Beschädigungen oder Abnutzungen zu erkennen, die zu einem Unfall führen konnten.
+                    </p>
+                    <p>Die Prüfung erfolgte durch Mitarbeiter, denen ein geografischer Verantwortungsbereich
+                        zugewiesen wurde. Sie hatten Zeit, die Aufträge abzuarbeiten, und konnten selbst
+                        entscheiden, welche Anlage sie zuerst besuchten. Hauptsächlich mussten sie innerhalb eines
+                        bestimmten Zeitraums alle Anlagen besuchen und alle zugewiesenen Aufträge auf der Oberfläche
+                        der Applikation mit Kalenderansicht abarbeiten. Die Mitarbeiter hatten auch die Möglichkeit,
+                        Mängel innerhalb eines Camunda-BPM-Prozesses zu erfassen.</p>
+                    </p>
+                    <p>
+                        Erstellung von Meldungen: Beim Ausfüllen eines Formulars kann der Zustand auf "Mangelhaft"
+                        gesetzt werden, was automatisch eine Meldung/Dispatch generiert, sobald die
+                        Auftragsposition(Assignment) und das Formular abgeschlossen sind.
+                    </p>
+                </figure>
+            </div>
+            <div>
+                <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseTreeStructure">
+                    Formulare mit verschachtelten Formularelementen
+                </button>
+
+                <figure id="collapseTreeStructure" class="collapse">
+                    <figcaption>Formulare mit verschachtelten Formularelementen</figcaption>
+                    <br>
+                    <p>
+                        Die Anwendung des Kunden nutzte die objektrelationalen Mapping-Funktionen von
+                        Hibernate, um
+                        hierarchische Datenstrukturen darzustellen.Beispiele für hierarchische
+                        Datenstrukturen sind Formulare
+                        mit verschachtelten Formularelementen.Entitäten wie FormElement und AbstractFormNode
+                        wurden entwickelt,
+                        um die hierarchischen Beziehungen zu repräsentieren. FormElement hatte eine
+                        übergeordnete Referenz und
+                        eine Liste von Kindern.
+                    </p>
+                    <pre>
+                                    <code class="language-java">
+public abstract class FormElement extends AbstractFormNode<FormElement, FormVisitor> {
+    @ManyToOne
+    private FormElement parent;
+}
+
+public abstract class AbstractFormNode<C extends AbstractFormNode
+                                        <?, V>, V> {
+    @Transient
+    private List<C> children;
+}
+                                    </code>
+                                </pre>
+                    <p>
+                        Die Anwendung enthielt auch spezialisierte Unterklassen wie FormElementBlock und
+                        FormElementPage, um bestimmte Formularabschnitte oder -seiten darzustellen.
+                    </p>
+                    <pre>
+                                    <code class="language-java">
+public class FormElementBlock extends FormElement {
+public class FormElementPage extends FormElement {
+public class FormElementEnum extends FormElement {
+                                    </code>
+                                </pre>
+
+
+                </figure>
+            </div>
+            <div>
+                <h2>Kundenwunsch/Aufgabenstellung</h2>
+                <p>
+                    Der Benutzer kann nach der Erstellung einer Dispatchanfrage/Mangelerfassung diese und einige
+                    ihrer Eigenschaften anzeigen lassen.
+                </p>
+
+                <p>Der Kunde wünschte sich jedoch zusätzliche Funktionen: Fünf spezifische Attribute, die Einblicke
+                    in die Quelle einer Dispatchanfrage geben, sollten bei der Anzeige einer Dispatchanfrage
+                    sichtbar sein.
+                </p>
+                </div>
+            <div>
+                <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseDispatchMangel">
+                    Dispatch/Mangel
+                </button>
+                <figure id="collapseDispatchMangel" class="collapse">
+                    <img src="img/Attribs/Mangel_Partial_Clean.png"/>
+                    <figcaption>Front-End schon vorbereitet für die 5 zusätzliche dynamische Attribute</figcaption>
+                </figure>
+            </div>
+            <div>
+                <h2>Dynamische/Berechnete Attribute</h2>
+                <p>Diese berechneten Attribute sollten aktiv gepflegt und bei Änderungen in den Quelldaten neu
+                    berechnet werden. Änderungen in Quellattributen sollten in Echtzeit oder Quasi-Echtzeit an alle
+                    abhängigen Attribute propagiert werden, um die Datenkonsistenz in der Anwendung zu
+                    gewährleisten.</p>
+                <p> Um diese Anforderungen zu erfüllen, musste die Anwendung ein reaktives Modell einführen, bei dem
+                    Änderungen der Entitätszustände Aktualisierungen in verwandten Entitäten auslösen. </p>
+            </div>
+            <div>
+                <h1>
+                    Aktualisieren der von einer anderen Entität abhängigen Eigenschaften um stets den Überblick zu behalten
+                </h1>
+                <p>
+                    Die Herausforderung bestand darin, mit Szenarien umzugehen, in denen Attributänderungen in einer Entität Aktualisierungen in verwandten Entitäten anstoßen und gleichzeitig die korrekte Dateianzeige während der gesamten Anwendungsdauer gewährleisten.
+                </p>
+            </div>
+
+
+
+´            <div>
+                <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseDispatchMangel_1">
+                Dispatchanfrage/Mangelerfassung
+                </button>
+                <figure id="collapseDispatchMangel_1" class="collapse">
+                    <p>Wenn der Status eines Formelements auf "Mangel" gesetzt wurde, generierte dies
+                        automatisch eine Versandbenachrichtigung, sobald die zugehörige Assignment/Termin
+                        (siehe Termin-Kalendar Funktionalität <a
+                                href="https://profile.devopsexpert.eu/index4.html">Terminplan mit
+                            Kalenderansicht</a>) und das Formular
+                        abgeschlossen waren.
+                    </p>
+                    <img id="mangel" src="img/Attribs/Mangel_Clean.png"/>
+                    <figcaption></figcaption>
+                    <p>
+                        Diese Funktionalität wurde durch Klassen wie CloseFormVisitor implementiert, die
+                        eine neue
+                        Dispatch-Entität erstellten und Beziehungen zu den relevanten FormElement- und
+                        anderen Entitäten
+                        herstellten.
+                    </p>
+                    <div id="FormElementDispatchJoin">Beachte wie die Beziehung zwischen FormElement und Dispatch in
+                        einer Join-Tabelle festgehalten wird
+                    </div>
+                    <pre>
+                    <code class="language-java">
+public void onExitBlock(FormElementBlock block, FormTraversalStatus status) {
+if (blockDefect) {
+rememberFuncloc(block);
+createDispatchDefect(block);
+}
+}
+
+private void createDispatchDefect(FormElementBlock block) {
+Dispatch dispatch = new Dispatch();
+dispatch.setTypeCat(DispatchTypeSD.DEFECT_NOTIFICATION);
+// ... (omitted for brevity)
+standingDataDao.persist(dispatch, attribMap);
+// ... (omitted for brevity)
+new PostCreateEntityEvent(dispatch).broadcast();
+EntityManager em = Lookup.entityManager();
+em.persist(new DispatchAssignmentJoin(dispatch, assignment, DispatchAssignmentJoinType.SOURCE));
+em.persist(new FormElementDispatchJoin(block, dispatch));
+// ... (omitted for brevity)
+}
+</code>
+</pre>
+                </figure>
+
+            </div>
+        </div>
+        <div>
+            <h2>Technische Lösung</h2>
+            <p>GraphQL Anpassung</p>
+            <p>Entitäten wie <a href="#FormElementDispatchJoin" data-bs-toggle="collapse"
+                                data-bs-target="#collapseTreeStructure"">FormElementDispatchJoin</a> wurden eingeführt,
+                um Beziehungen zwischen Formularelementen und Dispatchanfragen herzustellen und es der Anwendung zu
+                ermöglichen, von einer Dispatchanfrage zu den zugehörigen Formular-, Auftrags- und Planungsinformationen
+                zu navigieren.</p>
+            <div>
+                <p>
+                <ul>
+                    <li>* Verknüpfung durch Klassen: Durch die class FormElementDispatchJoin werden
+                        Formulareinträge/FormElement-e und Meldungen/Dispatch-es miteinander verknüpft. Eine spezielle
+                        Klasse FormElementBlock erweitert FormElement für spezifische Formularseiten oder -blöcke.
+                    </li>
+                    <li> * Datenfluss: Von einer Meldung/Dispatch über FormElementDispatchJoin gelangt man zum
+                        FormElement und von dort aus zum Formular/Form, das auch den Namen des Auftrags/Orders und die
+                        dazugehörige Planung/Planning umfasst.
+                    </li>
+                    <li> * FormElementDispatchJoin ist quasi eine Entität für eine Join-Tabelle, sodass es Foreign Keys
+                        beinhaltet für den Dispatch und den dazu gehörigen FormElement. Und FormElement ist auch eine
+                        Entität, das ein Feld hat in seiner Klasse, die sich auf diesen Form bezieht. Das sind alle
+                        Hibernate-Entitäten.
+                    </li>
+                </ul>
+
+
+                <pre><code class=" language-java">
+                            class FormElementDispatchJoin{
+                            @EmbeddedId
+                            @AttributeOverride(name = "left", column = @Column(name = "FORM_ELEMENT_ID"))
+                            @AttributeOverride(name = "right", column = @Column(name = "DIS_ID"))
+                            private SimpleCompositeKey id;
+                            @ManyToOne
+                            @JoinColumn(name = "FORM_ELEMENT_ID", nullable = false, updatable = false, insertable =
+                            false)
+                            private FormElement formElement;
+                            @ManyToOne
+                            @JoinColumn(name = "DIS_ID", nullable = false, updatable = false, insertable = false)
+                            private Dispatch dispatch;
+
+
+                            class FormElement{
+                            private Form form
+                            </code></pre>
+                </p>
+            </div>
+            <p>Hibernate SPI Event Listener</p>
+            <p>Groovy Script</p>
+            <p>Final UI for assigning values to dynamic attribute and keeping them updated via Trigger/Auslöser</p>
+            <a href="https://profile.devopsexpert.eu/index2.html">Basistypen und das flexible EAV-Datenmodell und
+                zugehörige Benutzeroberfläche, damit Administratoren weitere Attribute zur Datenbank hinzufügen
+                können</a>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+</div>
+
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+<script src="js/prism.js"></script>
+</body>
+
+</html>

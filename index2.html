@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Portfolio</title>
+    <link rel="stylesheet" href="css/prism.css"/>
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/pageLayout.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous" />
+</head>
+<body>
+<div class="container">
+<h1>Implementierung eines automatisierten Benachrichtigungssystems für Zertifikatserneuerungen</h1>
+
+<p>Willkommen zu meinem Blogbeitrag, in dem ich ein aufregendes Feature vorstelle, das wir kürzlich in unserem System implementiert haben: Ein automatisiertes Benachrichtigungsmodul. Dieses Modul ist entscheidend für die rechtzeitige und effiziente Verwaltung von Zertifikatserneuerungen.</p>
+
+<div>
+<h2>Anwendundgsfall</h2>
+<p>
+    Sicherheitsabsperrventile spielen eine wichtige Rolle in der Gas-Fernleitungsinfrastruktur. Sie sind überall dort verteilt, wo es Gaspipelines gibt. Regelmäßige Wartung, Prüfung durch Gastdienstleister-Mitarbeiter und Zertifizierung durch Zertifizierungsstellen für solche Infrastruktur-Bauteile sind erforderlich. Das Modul zielt darauf ab, Benutzer automatisch ein Jahr vor Ablauf der Zertifizierung über die Notwendigkeit einer Erneuerung zu informieren. Dies erleichtert eine proaktive Verwaltung und Wartung von Sicherheitselementen und Assets.
+</p>
+<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSAVs"">
+    Verteilung von Sicherheitsabsperrventile
+</button>
+<figure id="collapseSAVs" class="collapse">
+    <img id="savs" src="img/SAV_1_clean.png" alt="Verteilung von Sicherheitsabsperrventile" title="Verteilung von Sicherheitsabsperrventile">
+    <figcaption>Verteilung von Sicherheitsabsperrventile</figcaption>
+    <br>
+    <article>
+        <h2>Struktur und Abfragen der Datenbank für Funktionsorte (Funcloc)</h2>
+        <p>Diese Sektion beschreibt die Tabellen und die SQL-Abfragen, die zur Ermittlung von Funktionsorten (Funcloc) auf Basis spezifischer Kriterien verwendet werden.</p>
+    
+        <section>
+            <h3>Beteiligte Tabellen und ihre Attribute</h3>
+            <p>Nachfolgend sind die beteiligten Tabellen aufgeführt, die in den Abfragen verwendet werden:</p>
+            <ul>
+                <li><strong>gis_flc_e (Entitätstabelle)</strong>
+                    <ul>
+                        <li>id: Eindeutige Identifikationsnummer der Entität</li>
+                        <li>type_cat_id: Fremdschlüssel zur Kategorietabelle (gis_flc_tc)</li>
+                    </ul>
+                </li>
+                <li><strong>gis_flc_tc (Typ-Kategorietabelle)</strong>
+                    <ul>
+                        <li>id: Eindeutige Identifikationsnummer des Typs</li>
+                        <li>name: Name der Kategorie (z.B. "Sicherheitsabsperrventil")</li>
+                    </ul>
+                </li>
+                <li><strong>gis_flc_a (Attribut-Tabelle)</strong>
+                    <ul>
+                        <li>entity_id: Fremdschlüssel, der auf die Entitätstabelle (gis_flc_e) verweist</li>
+                        <li>attrib_type_cat_id: Fremdschlüssel zur Attribut-Typ-Kategorietabelle (gis_flc_atc)</li>
+                        <li>value: Wert des Attributs</li>
+                    </ul>
+                </li>
+                <li><strong>gis_flc_atc (Attribut-Typ-Kategorietabelle)</strong>
+                    <ul>
+                        <li>id: Eindeutige Identifikationsnummer des Attributtyps</li>
+                        <li>name: Name des Attributtyps (z.B. "Rezertifizierung")</li>
+                        <li>type_cat_id: Fremdschlüssel zur Typ-Kategorietabelle (gis_flc_tc)</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+    
+        <section>
+            <h3>SQL-Abfragen zur Ermittlung von Funktionsorten</h3>
+            <p>Nachfolgend sind die zunehmend komplexeren SQL-Abfragen dargestellt, die verschiedene Joins und Filterkriterien verwenden, um relevante Daten zu extrahieren:</p>
+<pre><code class="language-sql">
+-- Einfache Auswahl
+SELECT tc.name FROM gis_flc_tc tc WHERE tc.name LIKE '%ventil%';
+
+-- Erweiterte Joins
+SELECT * FROM gis_flc_e e 
+JOIN gis_flc_tc tc ON e.type_cat_id = tc.id 
+WHERE tc.name LIKE '%ventil%' AND ROWNUM &lt; 5;
+</code></pre>
+<p>Diese Abfrage verbindet Entitäten mit ihren Typen und filtert nach Typnamen.</p>
+<pre><code class="language-sql">
+-- Attribute einer spezifischen Entität
+SELECT attrib.* FROM gis_flc_e e 
+JOIN gis_flc_a attrib ON attrib.entity_id = e.id 
+WHERE e.id = 3901808;
+</code></pre>
+<p>Hier werden alle Attribute einer spezifischen Entität angezeigt.</p>
+<pre><code class="language-sql">
+-- Verbindung von Attributen, Attribut-Typen und deren Kategorien
+SELECT atc.ID, atc.name, atc.type, atc.type_cat_id, attrib.value, attrib.attrib_type_cat_id 
+FROM gis_flc_e e 
+JOIN gis_flc_a attrib ON attrib.entity_id = e.id 
+JOIN gis_flc_atc atc ON attrib.attrib_type_cat_id = atc.id 
+WHERE e.id = 3901808;
+</code></pre>
+<p>Diese Abfrage zeigt, wie Attribute über ihre Typen zu ihren Kategorien in Beziehung stehen und enthält auch die Werte der Attribute.</p>
+<pre><code class="language-sql">
+-- Optimale SQL-Abfrage (Hibernate)
+SELECT f FROM Funcloc f 
+JOIN f.attributes attribs 
+WHERE f.typeCat.name = 'SAV' 
+AND attribs.attribTypeCat.name = 'Rezertifizierung' 
+AND trunc(:lastRenewalReminderLeadTimeEnd) &lt; trunc(safe_to_date(attribs.value)) 
+AND trunc(safe_to_date(attribs.value)) &lt;= trunc(:renewalReminderLeadTimeEnd);
+</code></pre>
+<p>Diese Abfrage verknüpft die Funktionsorte (Funcloc) über ihre Attribute, wobei gefiltert wird nach Typ-Kategorienamen und Attribut-Typ-Kategorienamen. Sie nutzt zudem Datumsfunktionen, um zu ermitteln, welche Zertifizierungsdaten in einem spezifischen Zeitfenster ablaufen.</p>
+        </section>
+    
+        <section>
+            <h3>Zusammenfassung</h3>
+            <p>Durch die Verwendung der beschriebenen Abfragen können relevante Funktionsorte/Fachobjekte/Funclocs basierend auf bestimmten Typ-Kategorien und Attributen effizient identifiziert und verwaltet werden. Die SQL-Abfragen nutzen Datumsfunktionen, um zu ermitteln, welche Zertifizierungsdaten in einem spezifischen Zeitfenster ablaufen, was für die Rezertifizierungsprozesse von entscheidender Bedeutung ist.</p>
+        </section>
+    </article>
+</figure>
+</div>
+
+<div>
+<h2>Beschreibung des Features</h2>
+<p>Das Hauptziel unseres Benachrichtigungsmoduls ist es, unsere Nutzer über anstehende Zertifikatserneuerungen für kritische Komponenten wie Sicherheitsabsperrventile und Kugelhähne zu informieren. Dies erfolgt durch automatisierte E-Mail-Benachrichtigungen, die den Nutzern helfen, immer auf dem neuesten Stand zu bleiben.</p>
+<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEmailKonfiguration"">
+    E-Mail Konfigurationsoberfläche
+</button>
+<figure id="collapseEmailKonfiguration" class="collapse">
+    <img id="email-vorlage" src="img/E-Mail_Vorlage_1_clean.png" alt="E-Mail Konfigurationsoberfläche" title="E-Mail Konfigurationsoberfläche">
+    <figcaption> E-Mail Konfigurationsoberfläche</figcaption>
+    <br>
+    <p>
+        Das E-Mail-Benachrichtigungsmodul unseres Systems ermöglicht eine flexible Gestaltung von Benachrichtigungen durch einen spezialisierten Editor. Dieser Editor erlaubt das Einsetzen von vordefinierten Platzhaltern in E-Mail-Vorlagen. Bei der Versendung werden diese Platzhalter automatisch mit den zugehörigen Daten gefüllt.
+    </p>
+    <h2>Organisation der Platzhalter</h2>
+    <p>
+        Die Platzhalter sind nach Themen gruppiert, wie <strong>Empfänger</strong>, <strong>Benachrichtigungstyp</strong>, <strong>Benachrichtigungsregel</strong>, <strong>Systemeinstellungen für die Vorlaufzeit zur Erneuerungserinnerung</strong>, das <strong>Ablaufdatum der Zertifizierung</strong> und <strong>Zertifizierungsobjekte</strong>. Wir werden später erläutern, wie diese letzten drei programmatisch bereitgestellt werden, um ihre Auswahl in der E-Mail-Vorlage zu ermöglichen.
+    </p>
+    <p>
+        Die Konfiguration umfasst verschiedene Eingabefelder, die das JSF Expression Language Format unterstützen. Dieses Format erlaubt es, dynamische Ausdrücke direkt im XHTML-Code zu nutzen, was eine effiziente Datenverarbeitung und -darstellung ermöglicht.
+    </p>
+    <p>
+        Hier ist ein Beispiel, wie dynamische Listen von Zertifizierungsobjekten im XHTML dargestellt werden können:
+    </p>
+    <script type="text/plain" class="language-html">
+            <p><ul jsfc="ui:repeat" value="#{certificationObjectsMap}" var="obj">
+                <li>#{obj.name}</li>
+              </ul></p>              
+    </script>
+    <p>
+        Dieser Codeabschnitt demonstriert, wie man eine ungeordnete Liste von Objekten erstellt, wobei jedes Element der Liste einem Zertifizierungsobjekt entspricht.
+    </p>
+</figure>
+</div>
+    
+<div>
+<h2>Einrichtung des Benachrichtigungsmoduls</h2>
+<p style="clear: both">Administratoren können ein Benachrichtigungsmodul erstellen, das es den Nutzern ermöglicht, sich für regelmäßige Updates zu einem bestimmten Thema zu registrieren. Die Konfiguration umfasst spezifische Eingabefelder, die festlegen, welche Methode ausgeführt wird, das gewählte Zeitintervall und die zu übergebenden Argumente.</p>
+
+<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseKonfiguration"">
+    Verwaltungsoberfläche für Benachrichtigungen
+</button>
+<figure id="collapseKonfiguration" class="collapse">
+    <img id="konfiguration" src="img/Benachrichtigungskonfiguration_Crop.png" alt="Administratoroberfläche für das Erstellen eines Notification Moduls" title="Administratoroberfläche für das Erstellen eines Notification Moduls">
+    <figcaption>Verwaltungsoberfläche für Benachrichtigungen</figcaption>
+    <br>
+    <p>
+        Das neue Benachrichtigungen Modul kann beim Erstellen konfiguriert werden. Ein Wochentag kann bestimmt werden, an den es ausgelöst werden soll.
+    </p>
+    <p>
+        Die Nutzer benötigten ein System, das sie rechtzeitig informiert, welche Objekte innerhalb zB. des nächsten 365 Tage eine Erneuerung ihrer Zertifikate benötigen.
+    </p>
+    <p>
+        Die Oberfläche für die Benachrichtigungskonfiguration ermöglicht es dem Administrator, das Benachrichtigungsmodul flexibel anzulegen. Die Konfiguration erfolgt über XHTML und ist wie folgt definiert:
+    </p>
+    <script type="text/plain" class="language-xml">
+        <ui:composition xmlns:f="http://java.sun.com/jsf/core" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                        xmlns:ui="http://java.sun.com/jsf/facelets">
+
+            <af:panelLabelAndMessage label="#{messages['app.notification.recertification.renewelReminderLeadTime']}:">
+                <af:inputText simple="true" value="#{obj.renewalReminderLeadTime}"
+                              readOnly="#{!formCtrl.editing}" styleClass="size80"/>
+                <f:facet name="end">
+                    <af:outputText value="#{messages['const.intervallUnit.DAY.plural']}"/>
+                </f:facet>
+            </af:panelLabelAndMessage>
+        </ui:composition>
+    </script>
+    <br>
+    <p>
+        Dieser Codeabschnitt demonstriert, wie Label in JSF konfiguriert werden. Es zeigt auch, wie man eine `af:panelLabelAndMessage` verwendet, um Label und Wert/Input in einer Zeile zu organisieren. Die Facetten, hier verwendet mit `<f:facet>`, erlauben es, spezifische Teile an bestimmten Stellen zu positionieren, was für ein übersichtliches Layout sorgt.
+    </p>
+    <p>
+        Zuerst haben wir ein AFPanelFormLayout verwendet und das hat dafür gesorgt, dass der Label in eine neue Zeile gerutscht ist, statt in derselben Zeile wie der Wert/Input zu bleiben.
+    </p>
+    <p>
+        Um diese Anordnung zu korrigieren, haben wir das AFPanelLabelAndMessage-Element eingeführt, das sowohl das Label als auch den zugehörigen Wert (Message) umfasst. Dieses Element erlaubt es uns, die Anzeige so zu steuern, dass Label und Wert in derselben Zeile erscheinen. Es ist auch wichtig, das Attribut <code>simple="true"</code> beim Input-Text zu verwenden, um unerwünschte Label-Darstellungen zu vermeiden und nur den Wert anzuzeigen. Diese Anpassung verhindert unnötige Einrückungen und sorgt für ein sauberes Layout.
+    </p>
+    <p>
+        Zusätzlich wurde die Notwendigkeit einer angepassten Breite für den Input-Text mittels der Style-Klasse <code>size80</code> betont, die eine angemessene Breitenanpassung ermöglicht und so das Gesamtbild verbessert. Es wird auch gezeigt, wie Facetten genutzt werden können, um spezifische Layout-Anforderungen innerhalb von JSF-Komponenten zu erfüllen. Insbesondere die <code>end</code> Facette im AFPanelLabelAndMessage, die dazu dient, den Output-Text mit einem kleinen Abstand richtig zu positionieren, um eine klare Trennung der Elemente zu gewährleisten.
+    </p>
+</figure>
+</div>
+
+<div>
+<h2>Benachrichtigungskonfiguration</h2>
+<p>Nutzer können die Benachrichtigungsthemen abonnieren und erhalten E-Mails, die nach einem festgelegten Zeitplan gesendet werden. Die Benachrichtigungen werden so konfiguriert, dass sie nur die relevanten Objekte betreffen, die innerhalb des nächsten Jahres eine Erneuerung benötigen.</p>
+<pre><code class="lang-java">
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, world!");
+    }
+}
+</code></pre>
+<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRecertificationModule">
+    Mehr über das Recertification Module
+</button>
+<figure id="collapseRecertificationModule" class="collapse">
+    <figcaption>Codebeispiel und Erklärung zum Recertification Due Notification Module</figcaption>
+    <br>
+    <p>
+        Das Modul nutzt das Interface <code>RecertificationDueNotificationRule</code>, um die Regeln für die Benachrichtigungszeitpunkte zu definieren. Die Klasse <code>RecertificationDueNotificationRuleDecorator</code> implementiert dieses Interface und stellt Methoden bereit, um die Einstellungen für die Vorlaufzeit der Erneuerungserinnerungen zu lesen und zu schreiben.
+    </p>
+    <pre><code class="language-java">    
+@Name(RecertificationDueNotificationModule.COMPONENT_NAME)
+@Scope(ScopeType.APPLICATION)
+@AutoCreate
+@Startup(depends = {"org.jboss.seam.navigation.pages", StandingDataPersister.COMPONENT_NAME})
+public class RecertificationDueNotificationModule
+    extends TimeBasedNotificationModule&lt;RecertificationDueNotificationRule&gt; {
+
+    private static final long serialVersionUID = -2321605615754993069L;
+    public static final String COMPONENT_NAME = "RecertificationNotificationModule";
+
+    @In
+    private ActivityDao activityDao;
+    @In
+    private TaskDao taskDao;
+
+    @Override
+    protected void processTimeBasedNotification(RuleContext&lt;RecertificationDueNotificationRule&gt; rule) {
+        Long renewalReminderLeadTime = rule.getConfig().getRenewalReminderLeadTime();
+        Date from = rule.getLastInvocation();
+        Date to = rule.getNow();
+        User user = rule.getUser();
+
+        Date renewalReminderLeadTimeEnd = DateUtils.addDays(to, renewalReminderLeadTime.intValue());
+        Date lastRenewalReminderLeadTimeEnd = DateUtils.addDays(from, renewalReminderLeadTime.intValue());
+        List&lt;Funcloc&gt; funclocList = getFunclocList(
+                lastRenewalReminderLeadTimeEnd, renewalReminderLeadTimeEnd);
+
+        if (!funclocList.isEmpty()) {
+            sendNotification(rule, funclocList, renewalReminderLeadTime);
+        }
+    }
+
+    public List&lt;Funcloc&gt; getFunclocList(Date lastRenewelReminderLeadTimeEnd, Date renewelReminderLeadTimeEnd) {
+        String hqlQuery = "select f from Funcloc f join f.attributes attribs where f.typeCat.name = 'SAV' and attribs.attribTypeCat.name = 'Rezertifizierung' and trunc(:lastRenewalReminderLeadTimeEnd) &lt; trunc(safe_to_date(attribs.value)) and trunc(safe_to_date(attribs.value)) &lt;= trunc(:renewalReminderLeadTimeEnd)";
+        Query query = Lookup.entityManager().createQuery(hqlQuery);
+        query.setParameter("lastRenewalReminderLeadTimeEnd", lastRenewelReminderLeadTimeEnd);
+        query.setParameter("renewalReminderLeadTimeEnd", renewelReminderLeadTimeEnd);
+        List&lt;Funcloc&gt; funclocList = query.getResultList();
+        return funclocList;
+    }
+}
+    </code></pre>
+    <article>
+        <h2>Verarbeitung zeitbasierter Benachrichtigungen im RecertificationDueNotificationModule</h2>
+        <p>In der Methode <code>processTimeBasedNotification</code> des <code>RecertificationDueNotificationModule</code> wird der typisierte <code>RuleContext&lt;RecertificationDueNotificationRule&gt;</code> verwendet, um zeitbasierte Benachrichtigungen für die Rezertifizierung zu verarbeiten. Nachfolgend wird der Ablauf innerhalb dieser Methode detailliert beschrieben:</p>
+    
+        <section>
+            <h3>Extraktion der Lead Time</h3>
+            <p>Die Methode extrahiert zunächst die Erinnerungsfrist vor der Erneuerung (<code>renewalReminderLeadTime</code>) aus der Konfiguration der Regel (<code>rule.getConfig()</code>). Dieser Wert gibt an, wie viele Tage im Voraus Benutzer über die bevorstehende Rezertifizierung informiert werden sollen.</p>
+        </section>
+    
+        <section>
+            <h3>Berechnung des Zeitfensters</h3>
+            <p>Basierend auf dem extrahierten Wert berechnet die Methode zwei wichtige Zeitpunkte:</p>
+            <ul>
+                <li><strong>renewalReminderLeadTimeEnd:</strong> Dieses Datum markiert das Ende des Zeitfensters für die kommende Benachrichtigung und wird berechnet, indem die <code>renewalReminderLeadTime</code> zum aktuellen Datum (<code>rule.getNow()</code>) addiert wird.</li>
+                <li><strong>lastRenewalReminderLeadTimeEnd:</strong> Dies ist das Ende des Zeitfensters für die letzte Benachrichtigung, berechnet durch die Addition der <code>renewalReminderLeadTime</code> zum Datum der letzten Ausführung (<code>rule.getLastInvocation()</code>).</li>
+            </ul>
+        </section>
+    
+        <section>
+            <h3>Durchführung der SQL-Abfrage</h3>
+            <p>Mit diesen beiden berechneten Daten ruft die Methode <code>getFunclocList</code> auf, um die entsprechenden Funktionseinheiten (oder <code>Funcloc</code>) zu ermitteln, die innerhalb dieses spezifizierten Zeitfensters liegen. Die SQL-Abfrage innerhalb dieser Methode filtert Einträge basierend auf diesen Zeitfenstern und ermittelt relevante Objekte, die für die Benachrichtigung benötigt werden.</p>
+        </section>
+    
+        <section>
+            <h3>Versand der Benachrichtigung</h3>
+            <p>Wenn die Abfrage Ergebnisse zurückgibt (d.h., es gibt <code>Funcloc</code>-Objekte, die in das Kriterium passen), wird die Methode <code>sendNotification</code> aufgerufen. Diese Methode bereitet die eigentliche Benachrichtigung vor und sendet sie an den Benutzer. Die Benachrichtigung enthält Details wie das Ablaufdatum der Zertifizierung und andere relevante Informationen, die aus den Attributen der <code>Funcloc</code>-Objekte extrahiert werden.</p>
+        </section>
+    
+        <section>
+            <h3>Speicherung der Ausführungszeit</h3>
+            <p>Zum Abschluss speichert die Methode das aktuelle Datum (<code>rule.getNow()</code>) als die Zeit der letzten Ausführung, um bei der nächsten Ausführung als Referenzpunkt zu dienen. Dies hilft, eine kontinuierliche und zeitgerechte Auslösung von Benachrichtigungen zu gewährleisten.</p>
+        </section>
+    
+        <p>Durch diese Schritte stellt das <code>RecertificationDueNotificationModule</code> sicher, dass Benutzer rechtzeitig über ihre anstehenden Rezertifizierungen informiert werden, basierend auf den durch das System definierten Regeln und Zeitplänen.</p>
+    </article>
+    
+</figure>
+</div>
+
+
+<div>
+<h2>Implementierung und Anpassung für bestimmte Kunden</h2>
+
+<p>Die Entwicklung eines neuen Benachrichtigungsmoduls, das auf der Funktionalität des bestehenden Core-Moduls basiert ist einfach zu implementieren. 
+    
+<p>Das Benachrichtigungsmodul wird speziell für einen Kunden in einer Kundenbranche erstellt. Dabei nutzt man die Kernfunktionen des Core-Moduls als Grundlage, um ein angepasstes Benachrichtigungsmodul zu entwickeln, das den spezifischen Anforderungen dieses Kunden entspricht.
+</p>
+
+</div>
+
+<div>
+<h2>Technische Details und Implementierung</h2>
+<p>
+Wir müssen die Objekte abfragen, deren Ablaufdatum, deren Zertifikats Ablaufdatum vor einem bestimmten Stichtag liegt, nämlich vor dem Ausführung-Zeitpunkt plus ein Jahr.
+Und dann am nächste Woche müssen wir es wieder tun, ohne die Nutzern noch mal über die Objekte zu informieren, über die sie bereits informiert wurden bei der letzten Ausführung der Benachrichtigung.
+</p>
+    
+<p>
+Ein Worker-Thread, zusammen mit dem Scheduler und dem RuleContext, speichert bei jeder Ausführung, abgesehen von der allerersten, seine Ausführungszeit. Dies ermöglicht es, dass bei jeder folgenden Ausführung des Benachrichtigungsmoduls auf die letzte Ausführungszeit zugegriffen werden kann. Dadurch lässt sich das Zeitfenster entsprechend anpassen: Die linke Kante des Zeitfensters wird als 'letzte Ausführungszeit plus ein Jahr Vorlaufzeit' definiert. Diese Anpassung stellt sicher, dass Objekte, die bereits in der letzten E-Mail erwähnt wurden, nicht erneut in der aktuellen Benachrichtigung erscheinen.
+</p>
+<p>Entwickler, die tiefer in die Funktionalitäten von Quartz eintauchen möchten, sollten sich mit Schlüsselkonzepten wie dem Job-Interface, JobDetail, SchedulerFactory, JobBuilder, und TriggerBuilder vertraut machen.
+</p>
+<p>Die technische Implementierung umfasste die Entwicklung von XHTML-Seiten und Java-Klassen, die die Konfigurationsdaten verarbeiten. Jedes Benachrichtigungsmodul verfügt über ein Interface mit Getter- und Setter-Methoden, die die XHTML-Elemente referenzieren.</p>
+<img src="img/Commits_1_clean.png" alt="Technische Implementierung des Notification-Moduls" title="Technische Implementierung des Notification-Moduls">
+</div>
+
+<div>
+<p>In diesem Blogbeitrag habe ich die Entwicklung unseres kritischen Benachrichtigungsfeatures detailliert beschrieben. Ziel ist es zu zeigen, wie meine solide Ingenieurskunst und vorausschauende Planung zu effektiven und skalierbaren Lösungen führen können.</p>
+</div>
+
+</div>
+<script src="js/prism.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+crossorigin="anonymous"></script>
+</body>
+</html>
