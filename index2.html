@@ -22,7 +22,7 @@
 <p>
     Sicherheitsabsperrventile spielen eine wichtige Rolle in der Gas-Fernleitungsinfrastruktur. Sie sind überall dort verteilt, wo es Gaspipelines gibt. Regelmäßige Wartung, Prüfung durch Gastdienstleister-Mitarbeiter und Zertifizierung durch Zertifizierungsstellen für solche Infrastruktur-Bauteile sind erforderlich. Das Modul zielt darauf ab, Benutzer automatisch ein Jahr vor Ablauf der Zertifizierung über die Notwendigkeit einer Erneuerung zu informieren. Dies erleichtert eine proaktive Verwaltung und Wartung von Sicherheitselementen und Assets.
 </p>
-<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSAVs"">
+<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSAVs">
     Verteilung von Sicherheitsabsperrventile
 </button>
 <figure id="collapseSAVs" class="collapse">
@@ -118,7 +118,7 @@ AND trunc(safe_to_date(attribs.value)) &lt;= trunc(:renewalReminderLeadTimeEnd);
 <div>
 <h2>Beschreibung des Features</h2>
 <p>Das Hauptziel unseres Benachrichtigungsmoduls ist es, unsere Nutzer über anstehende Zertifikatserneuerungen für kritische Komponenten wie Sicherheitsabsperrventile und Kugelhähne zu informieren. Dies erfolgt durch automatisierte E-Mail-Benachrichtigungen, die den Nutzern helfen, immer auf dem neuesten Stand zu bleiben.</p>
-<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEmailKonfiguration"">
+<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEmailKonfiguration">
     E-Mail Konfigurationsoberfläche
 </button>
 <figure id="collapseEmailKonfiguration" class="collapse">
@@ -139,9 +139,11 @@ AND trunc(safe_to_date(attribs.value)) &lt;= trunc(:renewalReminderLeadTimeEnd);
         Hier ist ein Beispiel, wie dynamische Listen von Zertifizierungsobjekten im XHTML dargestellt werden können:
     </p>
     <script type="text/plain" class="language-html">
-            <p><ul jsfc="ui:repeat" value="#{certificationObjectsMap}" var="obj">
-                <li>#{obj.name}</li>
-              </ul></p>              
+<p>
+    <ul jsfc="ui:repeat" value="#{certificationObjectsMap}" var="obj">
+        <li>#{obj.name}</li>
+    </ul>
+</p>
     </script>
     <p>
         Dieser Codeabschnitt demonstriert, wie man eine ungeordnete Liste von Objekten erstellt, wobei jedes Element der Liste einem Zertifizierungsobjekt entspricht.
@@ -153,7 +155,7 @@ AND trunc(safe_to_date(attribs.value)) &lt;= trunc(:renewalReminderLeadTimeEnd);
 <h2>Einrichtung des Benachrichtigungsmoduls</h2>
 <p style="clear: both">Administratoren können ein Benachrichtigungsmodul erstellen, das es den Nutzern ermöglicht, sich für regelmäßige Updates zu einem bestimmten Thema zu registrieren. Die Konfiguration umfasst spezifische Eingabefelder, die festlegen, welche Methode ausgeführt wird, das gewählte Zeitintervall und die zu übergebenden Argumente.</p>
 
-<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseKonfiguration"">
+<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseKonfiguration">
     Verwaltungsoberfläche für Benachrichtigungen
 </button>
 <figure id="collapseKonfiguration" class="collapse">
@@ -201,13 +203,6 @@ AND trunc(safe_to_date(attribs.value)) &lt;= trunc(:renewalReminderLeadTimeEnd);
 <div>
 <h2>Benachrichtigungskonfiguration</h2>
 <p>Nutzer können die Benachrichtigungsthemen abonnieren und erhalten E-Mails, die nach einem festgelegten Zeitplan gesendet werden. Die Benachrichtigungen werden so konfiguriert, dass sie nur die relevanten Objekte betreffen, die innerhalb des nächsten Jahres eine Erneuerung benötigen.</p>
-<pre><code class="lang-java">
-public class HelloWorld {
-    public static void main(String[] args) {
-        System.out.println("Hello, world!");
-    }
-}
-</code></pre>
 <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRecertificationModule">
     Mehr über das Recertification Module
 </button>

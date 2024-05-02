@@ -11,10 +11,18 @@
   <link rel="stylesheet" href="css/pageLayout.css"/>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous" />
+  <style>
+    /* Custom styling to make tabs vertical */
+    .htabs {
+      flex-direction: column; /* Align tabs vertically */
+    }
+    .tab-content {
+      margin-left: 20px; /* Space between tabs and content */
+    }
+  </style>
 </head>
 
 <body>
-
   <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item" role="presentation">
       <a class="nav-link" href="index.html">
@@ -23,7 +31,7 @@
     </li>
     <li class="nav-item" role="presentation">
       <a class="nav-link" href="index2.html">
-        Second
+        Geomagic - Rezertifizerung
       </a>
     </li>
     <li class="nav-item" role="presentation">
@@ -33,22 +41,40 @@
     </li>
   </ul>
 
-  <div class="tab-content" id="myTabContent">
-    <div class="tab-pane fade show active" id="first_tab" role="tabpanel" aria-labelledby="home-tab">
-      <div id="content-container">bup?</div>
-      <a href="index2.html">2</a>
+  <div class="containers mt-3">
+    <div class="row">
+      <div class="col-md-2">
+        <ul class="nav nav-tabs htabs">
+          <li class="nav-item">
+            <a class="nav-link active" data-bs-toggle="tab" href="#first_tab">Siemens Separation Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="tab" href="#first_tab_2">Geomagic - Rezertifizerung </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="tab" href="#second_tab">Geomagic - </a>
+          </li>
+        </ul>
+      </div>
+    <div class="col-md-10">
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="first_tab" role="tabpanel" aria-labelledby="home-tab">
+          Als Netzwerk-Administrator habe ich die Analyse von WAN-Konfiguration FMO gegenüber CMO durchgeführt, und die Prüfung der Atos Solution Designs für die Migrationen, danach den Ergebnissen entsprechend vorbereitete ich die WAN-Konfiguration und die WAN-Orders, beauftragte die WAN-Routings der Standort-Netze, am Ende dokumentierte ich meine Tätigkeiten auf eine prozess-konform Art. Ich nahm Teil an den Rollouts, ungefähr zwei Mal wöchentlich habe ich die Vorbereitung und technische Begleitung der Separations-Calls gemacht. Ich bin fähig bestehende Prozesse kennenlernen, indem ich um Einweisungen bitte und die nötigen Tätigkeiten aneigne, beziehungsweise nach detaillierten Informationen verlange.
+        </div>
+        <div class="tab-pane fade" id="first_tab_2" role="tabpanel" aria-labelledby="home-tab">
+          bup2
+        </div>
+        <!-- wird aufgefüllt im onload.js anhand id="second_tab" mit fetch index2.html-->
+        <div class="tab-pane fade" id="second_tab" role="tabpanel" aria-labelledby="profile-tab">
+          bup3
+        </div>
+        <!-- wird aufgefüllt im onload.js anhand id="third_tab" mit fetch index3.html-->
+        <div class="tab-pane fade" id="third_tab" role="tabpanel" aria-labelledby="contact-tab">
+          bup4
+        </div>
+      </div>
     </div>
-    <div class="tab-pane fade" id="first_tab_2" role="tabpanel" aria-labelledby="home-tab">
     </div>
-    <!-- wird aufgefüllt im onload.js anhand id="second_tab" mit fetch index2.html-->
-    <div class="tab-pane fade" id="second_tab" role="tabpanel" aria-labelledby="profile-tab">
-    </div>
-    <!-- wird aufgefüllt im onload.js anhand id="third_tab" mit fetch index3.html-->
-    <div class="tab-pane fade" id="third_tab" role="tabpanel" aria-labelledby="contact-tab">
-      <div id="content-container_2"></div>
-    </div>
-  </div>
-
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
     crossorigin="anonymous"></script>
