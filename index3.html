@@ -56,7 +56,7 @@
                         zugewiesen wurde. Sie hatten Zeit, die Aufträge abzuarbeiten, und konnten selbst
                         entscheiden, welche Anlage sie zuerst besuchten. Hauptsächlich mussten sie innerhalb eines
                         bestimmten Zeitraums alle Anlagen besuchen und alle zugewiesenen Aufträge auf der Oberfläche
-                        der Applikation mit Kalenderansicht abarbeiten. Die Mitarbeiter hatten auch die Möglichkeit,
+                        der Applikation mit Kartenansicht abarbeiten. Die Mitarbeiter hatten auch die Möglichkeit,
                         Mängel innerhalb eines Camunda-BPM-Prozesses zu erfassen.</p>
                     </p>
                     <p>
@@ -93,8 +93,7 @@ public abstract class FormElement extends AbstractFormNode<FormElement, FormVisi
     private FormElement parent;
 }
 
-public abstract class AbstractFormNode<C extends AbstractFormNode
-                                        <?, V>, V> {
+public abstract class AbstractFormNode<C extends AbstractFormNode<?, V>, V> {
     @Transient
     private List<C> children;
 }
@@ -183,85 +182,125 @@ public class FormElementEnum extends FormElement {
                     <pre>
                     <code class="language-java">
 public void onExitBlock(FormElementBlock block, FormTraversalStatus status) {
-if (blockDefect) {
-rememberFuncloc(block);
-createDispatchDefect(block);
-}
+    if (blockDefect) {
+        rememberFuncloc(block);
+        createDispatchDefect(block);
+    }
 }
 
 private void createDispatchDefect(FormElementBlock block) {
-Dispatch dispatch = new Dispatch();
-dispatch.setTypeCat(DispatchTypeSD.DEFECT_NOTIFICATION);
-// ... (omitted for brevity)
-standingDataDao.persist(dispatch, attribMap);
-// ... (omitted for brevity)
-new PostCreateEntityEvent(dispatch).broadcast();
-EntityManager em = Lookup.entityManager();
-em.persist(new DispatchAssignmentJoin(dispatch, assignment, DispatchAssignmentJoinType.SOURCE));
-em.persist(new FormElementDispatchJoin(block, dispatch));
-// ... (omitted for brevity)
+    Dispatch dispatch = new Dispatch();
+    dispatch.setTypeCat(DispatchTypeSD.DEFECT_NOTIFICATION);
+    // ... (omitted for brevity)
+    standingDataDao.persist(dispatch, attribMap);
+    // ... (omitted for brevity)
+    new PostCreateEntityEvent(dispatch).broadcast();
+    EntityManager em = Lookup.entityManager();
+    em.persist(new DispatchAssignmentJoin(dispatch, assignment, DispatchAssignmentJoinType.SOURCE));
+    em.persist(new FormElementDispatchJoin(block, dispatch));
+    // ... (omitted for brevity)
 }
 </code>
 </pre>
                 </figure>
 
             </div>
-        </div>
-        <div>
-            <h2>Technische Lösung</h2>
-            <p>GraphQL Anpassung</p>
-            <p>Entitäten wie <a href="#FormElementDispatchJoin" data-bs-toggle="collapse"
-                                data-bs-target="#collapseTreeStructure"">FormElementDispatchJoin</a> wurden eingeführt,
-                um Beziehungen zwischen Formularelementen und Dispatchanfragen herzustellen und es der Anwendung zu
-                ermöglichen, von einer Dispatchanfrage zu den zugehörigen Formular-, Auftrags- und Planungsinformationen
-                zu navigieren.</p>
             <div>
-                <p>
-                <ul>
-                    <li>* Verknüpfung durch Klassen: Durch die class FormElementDispatchJoin werden
-                        Formulareinträge/FormElement-e und Meldungen/Dispatch-es miteinander verknüpft. Eine spezielle
-                        Klasse FormElementBlock erweitert FormElement für spezifische Formularseiten oder -blöcke.
-                    </li>
-                    <li> * Datenfluss: Von einer Meldung/Dispatch über FormElementDispatchJoin gelangt man zum
-                        FormElement und von dort aus zum Formular/Form, das auch den Namen des Auftrags/Orders und die
-                        dazugehörige Planung/Planning umfasst.
-                    </li>
-                    <li> * FormElementDispatchJoin ist quasi eine Entität für eine Join-Tabelle, sodass es Foreign Keys
-                        beinhaltet für den Dispatch und den dazu gehörigen FormElement. Und FormElement ist auch eine
-                        Entität, das ein Feld hat in seiner Klasse, die sich auf diesen Form bezieht. Das sind alle
-                        Hibernate-Entitäten.
-                    </li>
-                </ul>
+                <h2>Technische Lösung</h2>
+                <ol>
+                    <li>GraphQL Anpassung, Datenmodell Erweiterung</li>
+                    <li>Hibernate SPI Event Listener</li>
+                    <li>Groovy Script-e als Trigger/Auslöser</li>
+                    <li>Groovy Script-e als Berechnungsvorschrift</li>
+                </ol>
+
+                <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseGraphQL">
+                    GraphQL Anpassung, Datenmodell Erweiterung
+                </button>
+                <figure id="collapseGraphQL" class="collapse">
+                    <figcaption>GraphQL Anpassung, Datenmodell Erweiterung</figcaption>
+                    <p>Entitäten wie <a href="#FormElementDispatchJoin" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseTreeStructure"">FormElementDispatchJoin</a> wurden eingeführt,
+                        um Beziehungen zwischen Formularelementen und Dispatchanfragen herzustellen und es der Anwendung zu
+                        ermöglichen, von einer Dispatchanfrage zu den zugehörigen Formular-, Auftrags- und Planungsinformationen
+                        zu navigieren.</p>
+
+                    <p>
+                    <ul>
+                        <li>Verknüpfung durch Klassen: Durch die class FormElementDispatchJoin werden
+                            Formulareinträge/FormElement-e und Meldungen/Dispatch-es miteinander verknüpft. Eine spezielle
+                            Klasse FormElementBlock erweitert FormElement für spezifische Formularseiten oder -blöcke.
+                        </li>
+                    <br>
+                        <li>Datenfluss: Von einer Meldung/Dispatch über FormElementDispatchJoin gelangt man zum
+                            FormElement und von dort aus zum Formular/Form, das auch den Namen des Auftrags/Orders und die
+                            dazugehörige Planung/Planning umfasst.
+                        </li>
+                    <br>
+                        <li>FormElementDispatchJoin ist quasi eine Entität für eine Join-Tabelle, sodass es Foreign Keys
+                            beinhaltet für den Dispatch und den dazu gehörigen FormElement. Und FormElement ist auch eine
+                            Entität, das ein Feld hat in seiner Klasse, die sich auf diesen Form bezieht. Das sind alle
+                            Hibernate-Entitäten.
+                        </li>
+                    </ul>
 
 
-                <pre><code class=" language-java">
-                            class FormElementDispatchJoin{
-                            @EmbeddedId
-                            @AttributeOverride(name = "left", column = @Column(name = "FORM_ELEMENT_ID"))
-                            @AttributeOverride(name = "right", column = @Column(name = "DIS_ID"))
-                            private SimpleCompositeKey id;
-                            @ManyToOne
-                            @JoinColumn(name = "FORM_ELEMENT_ID", nullable = false, updatable = false, insertable =
-                            false)
-                            private FormElement formElement;
-                            @ManyToOne
-                            @JoinColumn(name = "DIS_ID", nullable = false, updatable = false, insertable = false)
-                            private Dispatch dispatch;
+                    <pre>
+                        <code class=" language-java">
+class FormElementDispatchJoin{
+    @EmbeddedId
+    @AttributeOverride(name = "left", column = @Column(name = "FORM_ELEMENT_ID"))
+    @AttributeOverride(name = "right", column = @Column(name = "DIS_ID"))
+    private SimpleCompositeKey id;
+
+    @ManyToOne
+    @JoinColumn(name = "FORM_ELEMENT_ID", nullable = false, updatable = false, insertable = false)
+    private FormElement formElement;
+
+    @ManyToOne
+    @JoinColumn(name = "DIS_ID", nullable = false, updatable = false, insertable = false)
+    private Dispatch dispatch;
 
 
-                            class FormElement{
-                            private Form form
+class FormElement{
+    private Form form
                             </code></pre>
-                </p>
+                    </p>
+                </figure>
+                <hr>
+                <p>Wie wird auf die Änderungen der Datenbankänderungen reagiert?</p>
+                <p>Siehe: <a href="hibernateListener.html">Hibernate SPI Event Listener</a></p>
+                <hr>
+                <p>Wird es den Administratoren ermöglicht per UI die Berechnung der dynamischen Attribute zu definieren?</p>
+                <p>Ja, mithilfe einer UI für das Definieren von dynamische Attribute und das Aktuellhalten</p>
+                <video width="320" height="240" controls>
+                    <source src="img/Attribs/AusloeserLong1output.webm" type="video/webm">
+                    Your browser does not support the video tag.
+                </video>
+                <video width="320" height="240" controls>
+                    <source src="img/Attribs/AusloeserLong2output.webm" type="video/webm">
+                    Your browser does not support the video tag.
+                </video>
+                <p>Siehe: <a href="dynamicAttributeUI.html">Groovy Script,Aktuellhalten per Trigger/Auslöser</a></p>
+                <hr>
+                <p>Wie werden die Attribute eines Entitäts gespeichert?</p>
+                <p>Siehe: <a href="index2.html">Basistypen und das flexible EAV-Datenmodell und
+                    zugehörige Benutzeroberfläche, damit Administratoren weitere Attribute zur Datenbank hinzufügen
+                    können</a></p>
             </div>
-            <p>Hibernate SPI Event Listener</p>
-            <p>Groovy Script</p>
-            <p>Final UI for assigning values to dynamic attribute and keeping them updated via Trigger/Auslöser</p>
-            <a href="https://profile.devopsexpert.eu/index2.html">Basistypen und das flexible EAV-Datenmodell und
-                zugehörige Benutzeroberfläche, damit Administratoren weitere Attribute zur Datenbank hinzufügen
-                können</a>
         </div>
-        <div class="col-md-4"></div>
+
+        <div class="col-md-4">
+            <p>Wer bin ich?</p>
+            <p>Ábel Kecse</p>
+            <p>ein leidenschaftlicher IT Expert</p>
+            <p>Hinweis für das Lesen von Artikeln:</p>
+            <p>Aufgabenstellung und Anwendungsfall:</p>
+            <p>Die oberste Ebene des Artikels ist dafür gedacht, die Aufgabenstellung und den Anwendungsfall zu vermitteln. Hier findest du eine kurze Beschreibung dessen, worum es im Artikel geht.</p>
+            <p>Technische Details und UI:</p>
+            <p>Wenn du mehr ins Detail gehen möchtest, klicke auf die blauen Knöpfe.<button class="btn btn-primary" type="button"></button></p> <p>Hier findest du Informationen zu den technischen Aspekten, der Benutzeroberfläche und anderen relevanten Details.</p>
+        </div>
     </div>
 </div>
 
