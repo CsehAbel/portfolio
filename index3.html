@@ -274,14 +274,39 @@ class FormElement{
                 <hr>
                 <p>Wird es den Administratoren ermöglicht per UI die Berechnung der dynamischen Attribute zu definieren?</p>
                 <p>Ja, mithilfe einer UI für das Definieren von dynamische Attribute und das Aktuellhalten</p>
-                <video width="320" height="240" controls>
-                    <source src="img/Attribs/AusloeserLong1output.webm" type="video/webm">
-                    Your browser does not support the video tag.
-                </video>
-                <video width="320" height="240" controls>
-                    <source src="img/Attribs/AusloeserLong2output.webm" type="video/webm">
-                    Your browser does not support the video tag.
-                </video>
+                <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseTrigger1">
+                    Berechnetes Attribut erstellen
+                </button>
+                <figure id="collapseTrigger1" class="collapse">
+                    <video width="320" height="240" controls>
+                        <source src="img/Attribs/AusloeserLong1output.webm" type="video/webm">
+                        Your browser does not support the video tag.
+                    </video>
+                    <figcaption>
+                        Berechnetes Attribut erstellen
+                    </figcaption>
+                </figure>
+                <br>
+                <br>
+                <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseTrigger2">
+                    Trigger/Auslöser und Berechnungsvorschrift
+                </button>
+                <figure id="collapseTrigger2" class="collapse">
+                    <video width="320" height="240" controls>
+                        <source src="img/Attribs/AusloeserLong2output.webm" type="video/webm">
+                        Your browser does not support the video tag.
+                    </video>
+                    <figcaption>
+                        Trigger/Auslöser und Berechnungsvorschrift
+                        <img src="img/Attribs/BerechnungsVorschriftPlusAusloeserDokumentiert.png" />
+                        <br>
+                        <br>
+                    </figcaption>
+                </figure>
+                <br>
+                <br>
                 <p>Siehe: <a href="dynamicAttributeUI.html">Groovy Script,Aktuellhalten per Trigger/Auslöser</a></p>
                 <hr>
                 <p>Wie werden die Attribute eines Entitäts gespeichert?</p>

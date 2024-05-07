@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hibernate SPI Event Listener</title>
+  <link rel="stylesheet" href="css/prism.css"/>
+</head>
+<body>
+<h1>Hibernate Event Listener Beispiel</h1>
+
+<p>
+    Hier ist ein einfaches Proof of Concept (POC) in Java mit Hibernate und einem Event-Listening-Mechanismus, um abhängige Entitätsattribute zu verwalten. In diesem Szenario betrachten wir eine grundlegende Anwendung mit zwei Entitäten: Produkt und Inventar. Das Inventar soll automatisch sein stockStatus-Attribut basierend auf Änderungen am quantity-Attribut des Produkts aktualisieren.
+</p>
+<p>
+  Dieser Code richtet eine einfache Anwendung ein, bei der Änderungen am Feld "quantity" in der Entität "Product" automatisch Aktualisierungen am Feld "stockStatus" in der zugehörigen Entität "Inventory" auslösen. Der Ereignislistener "ProductChangeListener" ist registriert, um auf Post-Update-Ereignisse für Produktinstanzen zu lauschen. Bei Änderungen passt er das Inventar entsprechend an.
+</p>
+<p>
+  Dieses Muster ermöglicht eine Echtzeit- oder nahezu Echtzeit-Aktualisierung von voneinander abhängigen Attributen innerhalb eines Systems und verbessert die Reaktionsfähigkeit und Genauigkeit der Daten in verschiedenen Teilen der Anwendung.
+</p>
+
+<h2>Codebeispiel</h2>
+<pre>
+    <code class="language-java">
+        import javax.persistence.*;
+
+        @Entity
+        public class Product {
+            @Id
+            @GeneratedValue(strategy = GenerationType.IDENTITY)
+            private Long id;
+            private int quantity;
+
+            // Standard getters and setters
+            public int getQuantity() {
+                return quantity;
+            }
+
+            public void setQuantity(int quantity) {
+                this.quantity = quantity;
+            }
+        }
+
+        @Entity
+        public class Inventory {
+            @Id
+            @GeneratedValue(strategy = GenerationType.IDENTITY)
+            private Long id;
+
+            @OneToOne
+            private Product product;
+
+            private String stockStatus;
+
+            // Standard getters and setters
+            public String getStockStatus() {
+                return stockStatus;
+            }
+
+            public void setStockStatus(String stockStatus) {
+                this.stockStatus = stockStatus;
+            }
+        }
+    </code>
+</pre>
+
+<pre>
+    <code class="language-java">
+        import org.hibernate.event.spi.PostUpdateEvent;
+        import org.hibernate.event.spi.PostUpdateEventListener;
+        import org.hibernate.persister.entity.EntityPersister;
+        import javax.persistence.EntityManager;
+
+        public class ProductChangeListener implements PostUpdateEventListener {
+            @Override
+            public void onPostUpdate(PostUpdateEvent event) {
+                if (event.getEntity() instanceof Product) {
+                    Product product = (Product) event.getEntity();
+                    EntityManager entityManager = event.getSession().getEntityManagerFactory().createEntityManager();
+                    entityManager.getTransaction().begin();
+                    Inventory inventory = entityManager.find(Inventory.class, product.getId());
+                    updateInventoryBasedOnProduct(inventory, product);
+                    entityManager.getTransaction().commit();
+                    entityManager.close();
+                }
+            }
+
+            private void updateInventoryBasedOnProduct(Inventory inventory, Product product) {
+                if (product.getQuantity() == 0) {
+                    inventory.setStockStatus("Out of Stock");
+                } else {
+                    inventory.setStockStatus("In Stock");
+                }
+            }
+
+            @Override
+            public boolean requiresPostCommitHanding(EntityPersister persister) {
+                return false;
+            }
+        }
+    </code>
+</pre>
+
+<pre>
+    <code class="language-java">
+        import org.hibernate.boot.MetadataSources;
+        import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+        import org.hibernate.boot.spi.MetadataBuilderContributor;
+        import org.hibernate.event.service.spi.EventListenerRegistry;
+        import org.hibernate.event.spi.EventType;
+        import org.hibernate.service.spi.ServiceRegistryImplementor;
+        import org.hibernate.SessionFactory;
+        import org.hibernate.boot.Metadata;
+
+        public class HibernateUtil {
+            private static SessionFactory buildSessionFactory() {
+                StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
+                        .applySetting("hibernate.connection.driver_class", "org.h2.Driver")
+                        .applySetting("hibernate.connection.url", "jdbc:h2:mem:testdb")
+                        .applySetting("hibernate.hbm2ddl.auto", "update")
+                        .applySetting("hibernate.dialect", "org.hibernate.dialect.H2Dialect")
+                        .build();
+
+                MetadataSources sources = new MetadataSources(registry)
+                        .addAnnotatedClass(Product.class)
+                        .addAnnotatedClass(Inventory.class);
+
+                Metadata metadata = sources.getMetadataBuilder()
+                        .apply(new MetadataBuilderContributor() {
+                            @Override
+                            public void contribute(MetadataBuilder metadataBuilder, ServiceRegistry serviceRegistry) {
+                                EventListenerRegistry eventListenerRegistry = ((ServiceRegistryImplementor) serviceRegistry)
+                                        .getService(EventListenerRegistry.class);
+                                eventListenerRegistry.appendListeners(EventType.POST_UPDATE, new ProductChangeListener());
+                            }
+                        })
+                        .build();
+
+                return metadata.getSessionFactoryBuilder().build();
+            }
+        }
+    </code>
+</pre>
+<h2>Weitere Erklärungen</h2>
+<p>
+    Lass uns genauer auf die von uns verwendeten Hibernate-Komponenten eingehen, um zu verstehen, wie sie zusammenwirken, um Echtzeitaktualisierungen für Entitätsattribute bereitzustellen. Dieser Ansatz umfasst mehrere Kern-Hibernate-Klassen und -Schnittstellen, insbesondere aus dem Paket org.hibernate.event.spi und den zugehörigen Setup-Klassen. Hier ist eine Übersicht über jede Komponente und ihre Rolle im Prozess:
+</p>
+<p>
+  <strong>org.hibernate.event.spi:</strong> Dieses Paket enthält die Service Provider Interfaces (SPIs) für das Ereignismanagement in Hibernate. Entwickler können diese SPIs implementieren, um auf den Lebenszyklus von Entitäten und Sammlungen zu reagieren. Der <code>PostUpdateEventListener</code> wird verwendet, um auf Post-Update-Ereignisse an Entitäten zu lauschen und benutzerdefinierte Aktionen auszuführen.
+</p>
+<p>
+  <strong>EventListenerRegistry:</strong> Dieser Service ermöglicht die Registrierung von benutzerdefinierten Ereignislistenern, die verschiedene Lebenszyklusereignisse abfangen können. Die Registrierung erfolgt während der Konfiguration der Session Factory.
+</p>
+<p>
+  <strong>MetadataSources, Metadata und MetadataBuilderContributor:</strong> Diese Klassen gehören zur Bootstrap-API von Hibernate und dienen der Konfiguration und dem Aufbau der Session Factory. <code>MetadataSources</code> enthält Metadatenquellen (z. B. Annotationen), <code>Metadata</code> hält das kompilierte Modell aller Zuordnungen und <code>MetadataBuilderContributor</code> ermöglicht die Anpassung des Metadatenbuilders.
+</p>
+<p>
+  <strong>SessionFactory und Session:</strong> Die SessionFactory ist ein Thread-sicherer Cache kompilierter Zuordnungen für eine einzelne Datenbank. Sie erstellt Session-Instanzen, die die Hauptlaufzeit-Schnittstelle zwischen einer Java-Anwendung und Hibernate darstellen.
+</p>
+<p>
+  <strong>StandardServiceRegistryBuilder und ServiceRegistry:</strong> Diese gehören zur Service-Registry-API von Hibernate und dienen der Konfiguration und dem Aufbau der Service-Registry, die die benötigten Dienste für Hibernate bereitstellt.
+</p>
+<script src="js/prism.js"></script>
+</body>
+</html>

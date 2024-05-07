@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Berechnungsvorschriften für dynamische Attribute</title>
+    <link rel="stylesheet" href="css/prism.css"/>
+</head>
+<body>
+<div>
+    <p>5 Berechnungen erstellen</p>
+    <p>Ausgehend von der Meldungs ID</p>
+
+
+    ### Assignment
+
+
+    <pre>
+        <code class="lang-sql">
+    --assignment
+    select assj.assignment from DispatchAssignmentJoin assj WHERE assj.dispatch.id=9627830 AND assj.dispatchAssignmentJoinType = 'SOURCE'
+        </code>
+    </pre>
+
+    <pre>
+        <code class="lang-groovy">
+    import de.geomagic.nam.mod.opr.entity.Assignment;
+
+    def findAssignment = (Long dispatchId) -> {
+
+    // Step 1: Execute HQL query
+    String hql = "select assj.assignment from DispatchAssignmentJoin assj WHERE assj.dispatch.id=:dispatchId AND assj.dispatchAssignmentJoinType = 'SOURCE'";
+
+    def query = entityManager.createQuery(hql, Assignment.class);
+
+    query.setParameter("dispatchId", dispatchId);
+
+    println("Querying assignment: " + dispatchId);
+    def assignment = query.getSingleResult();
+    println("assignment"+assignment.getId());
+
+    return assignment;
+    }
+
+
+    findAssignment(9627830).getName()
+        </code>
+    </pre>
+
+    ### Planning
+    <pre>
+        <code class="lang-sql">
+    --planning
+    select assj.assignment.planning ...
+        </code>
+    </pre>
+
+    <pre>
+        <code class="lang-groovy">
+    import de.geomagic.nam.mod.opr.entity.Planning;
+    //... Rest of Code ...
+    // Step 1: Execute HQL query
+    String hql = "select assj.assignment.planning from
+
+    def query = entityManager.createQuery(hql, Planning.class);
+    //... Rest of Code ...
+        </code>
+    </pre>
+    ### Order
+
+    <pre>
+        <code class="lang-sql">
+    --order
+    select assj.assignment.planning.order ...
+        </code>
+    </pre>
+    ### Block
+
+    <pre>
+        <code class="lang-sql">
+    --block
+    select dispj.formElement from FormElementDispatchJoin dispj where dispj.dispatch.id = dispj.dispatch.id
+        </code>
+    </pre>
+
+    <pre>
+        <code class="lang-java">
+    import javax.persistence.TypedQuery;
+
+    import de.geomagic.nam.main.entity.FormElement;
+    import de.geomagic.nam.main.entity.FormElementBlock;
+    import de.geomagic.nam.main.entity.FormElementDispatchJoin;
+
+
+    public FormElementBlock findFormElementBlock(Long dispatchId) {
+
+    // Step 1: Execute HQL query
+    String hql = "select dispj.formElement from FormElementDispatchJoin dispj where dispj.dispatch.id = :dispatchId";
+
+    TypedQuery<FormElement> query = entityManager.createQuery(hql, FormElement.class);
+
+    query.setParameter("dispatchId", dispatchId);
+
+    println("Querying formElement: " + dispatchId);
+    FormElement formElement = query.getSingleResult();
+    println("formElement"+formElement.getId());
+
+    // Step 2: Check if instance of FormElementBlock and traverse parents
+    return findFormElementBlockInHierarchy(formElement);
+    }
+
+    private FormElementBlock findFormElementBlockInHierarchy(FormElement currentElement) {
+
+    while (currentElement != null) {
+
+    if (currentElement instanceof FormElementBlock) {
+    return (FormElementBlock) currentElement;
+    }
+
+    currentElement = currentElement.getParent();
+    }
+    return null;
+    }
+
+    findFormElementBlock(9677856)
+        </code>
+    </pre>
+
+    ### Seite
+
+    <pre>
+        <code class="lang-sql">
+    --page
+    select dispj.formElement.form from FormElementDispatchJoin dispj where dispj.dispatch.id = dispj.dispatch.id
+        </code>
+    </pre>
+
+    <pre>
+        <code class="lang-groovy">
+    import javax.persistence.TypedQuery;
+
+    import de.geomagic.nam.main.entity.Form;
+    import de.geomagic.nam.main.entity.FormElementBlock;
+    import de.geomagic.nam.main.entity.FormElementDispatchJoin;
+
+
+    def findForm = (Long dispatchId) -> {
+
+        // Step 1: Execute HQL query
+        String hql = "select dispj.formElement.form from FormElementDispatchJoin dispj where dispj.dispatch.id = :dispatchId";
+
+        TypedQuery&ltForm&gt query = entityManager.createQuery(hql, Form.class);
+
+        query.setParameter("dispatchId", dispatchId);
+
+        println("Querying formElement: " + dispatchId);
+        Form form = query.getSingleResult();
+        println("formElement"+formElement.getId());
+
+        // Step 2: Check if instance of FormElementBlock and traverse parents
+        return form
+    }
+
+    findForm(9677856).getName()
+        </code>
+    </pre>
+
+</div>
+<script src="js/prism.js"></script>
+</body>
+</html>
