@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dankeschön Spiel</title>
+    <link rel="stylesheet" href="css/main.css"/>
+    <link rel="stylesheet" href="css/pageLayout.css"/>
+</head>
+<body>
+<div class="container">
+    <h1>Software Projekt: Elektronisches Dankeschön-Karten-System</h1>
+    <p>Das Projekt habe ich alleine Entwickelt mit Kontakt zu den Adminstratoren anderer Systeme,
+        damit ich eine zentrale Datenbank einrichten konnte um die Personaldaten, Karten-Zugangsystem Daten usw importieren zu können</p>
+    <p>Das Projekt wird bis heute benutzt von mehr als 500 Mitarbeiter, sowohl von Büromitarbeiter als auch von Betriebsfachkräfte</p>
+    <h2>User Story</h2>
+    <p>Als Mitarbeiter der Firma möchte ich ein elektronisches “Dankeschön-Karten”-System nutzen, um meinen Kollegen für
+        ihre Hilfe und positive Einstellung zu danken. Jeder Mitarbeiter sollte monatlich einen Punkt erhalten, um einem
+        Kollegen zu danken. Diese Punkte sollten später gegen Geschenke eingetauscht werden können.</p>
+    <h2>Akzeptanzkriterien</h2>
+    <ul>
+        <li>Das System sollte die BDE-Terminals und Zugangskarten für diesen Prozess verwenden, um den gesamten Prozess
+            elektronisch durchzuführen.
+        </li>
+        <li>Die Benutzeroberfläche sollte so gestaltet werden, sodass die Mitarbeiter die Touchscreen-Terminals benutzen können,
+            um schnell einen Kollegen zu finden kann, um die Stimme abzugeben.
+        </li>
+        <li>Mitarbeiter sollten die “Dankeschön-Punkte” einsehen können, die sie erhalten haben.</li>
+        <li>Für monatliche Zusammenfassungen und Berichte benötigen wir auch die Statistik der Stimmen als herunterladbare Excel Datei.</li>
+        <li>Das System sollte Sicherheitsfaktoren enthalten, um möglichen Betrug zu vermeiden. Zum Beispiel könnte nach
+            dem Lesen des Barcodes und dem Senden des Punktes ein Fenster geöffnet werden, in dem die letzten drei
+            Ziffern der Steuernummer eingegeben werden müssen.
+        </li>
+        <li>Das System sollte Filter auf der Arbeitsfläche haben: Lagernummer, Name,
+            Berufsbezeichnung. Diese Informationen sollten automatisch aktualisiert werden
+            aus dem HR Software-s MSSQL Datenbank mithilfe von Stored Procedures die um Mitternacht die Nutzerdaten importieren.
+        </li>
+        <li>Vor dem Ende der Abstimmung müssen die letzten 5 Ziffern der Seriennummer der Keycard als
+            quasi-Sicherheitsschlüssel eingegeben werden.
+        </li>
+        <li>Der Öffnungs-/Schließvorgang sollte mit einem festen Datum verknüpft sein: Öffnen: 1. Tag des Monats,
+            Schließen: 10. Tag des betreffenden Monats.
+        </li>
+        <li>Landing-Page mit Eingabefeldern und ein Knopf für Login/Logout.</li>
+        <li>Verschieden Berechtigungen für Admins und für normale Nutzern die
+            den User einige routes absperren und wiederum andere erlauben.</li>
+        <li>Mitarbeiter sollten in der Lage sein, die Bilder von Geschenken neben sich mit der Menge der Punkte, die
+            erforderlich sind, um sie einzulösen, anzusehen. Mit einem Klick auf das Bild kann der Mitarbeiter uns eine
+            E-Mail senden, dass er sein Geschenk einlösen möchte, und dann ziehen wir Admins das von seinen Punkten ab
+            und geben ihm sein gewähltes Geschenk.
+        </li>
+        <li>Auf der Admin-Seite sollte man Bilder hochladen, anordnen und Punktzahl vergeben können.</li>
+        <li>Das “Danke-Karte” Startdatum sollte der 1. Februar 2019 sein.</li>
+        <li>Die so genannte “OK”-Taste der Login-Schnittstelle könnte ein Blitzteil unseres Logos sein.</li>
+        <li>Das ZIEHL-ABEGG-Logo sollte in der unteren rechten Ecke jeder Seite mit einem Vektorgrafik-Logo angezeigt
+            werden.
+        </li>
+        <li>Der Mitarbeiter kann sein "Kontostand"/Punktzahl sehen, wenn er/sie eintritt.</li>
+        <li>Nach einer Abstimmung sollte ein Pop-up-Fenster mit der Beschriftung unten erscheinen: “Danke, dass Sie die
+            Unterstützung Ihrer Kollegen schätzen. Wir erwarten Ihre Abstimmung nächsten Monat.”
+        </li>
+        <li>Es sollte möglich sein, ad hoc zusätzliche Punkte hinzuzufügen, z.B. als Belohnung
+            kann ich jedem +50 Punkte geben.
+        </li>
+    </ul>
+    <figure>
+        <img src="/img/Gewinnspiel/Gewinnspiel.png"/>
+        <figcaption>
+            Hier sind drei Seiten von der website. Auf der ersten treten die Mitarbeiter
+            mit einer Karte und einem Barcodeleser ein, auf der zweiten wählen sie, für wen
+            sie Stimmen möchten, sie können dies auf drei Arten tun, und dann müssen Sie
+            Ihre Identität mit den teilen des Codes auf Ihrer Zugangskarte bestätigen.
+        </figcaption>
+    </figure>
+    <figure>
+        <a href="https://www.youtube.com/watch?v=IF5NEMA_osg">Demo-Video</a>
+        <figcaption>Eine weitere Phase des Projektes. Das Video habe ich zum Präsentieren benutzt.</figcaption>
+    </figure>
+</div>
+</body>
+</html>

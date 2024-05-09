@@ -88,14 +88,14 @@
                     </p>
                     <pre>
                                     <code class="language-java">
-public abstract class FormElement extends AbstractFormNode<FormElement, FormVisitor> {
+public abstract class FormElement extends AbstractFormNode&ltFormElement, FormVisitor> {
     @ManyToOne
     private FormElement parent;
 }
 
-public abstract class AbstractFormNode<C extends AbstractFormNode<?, V>, V> {
+public abstract class AbstractFormNode&ltC extends AbstractFormNode&lt?, V>, V> {
     @Transient
-    private List<C> children;
+    private List&ltC> children;
 }
                                     </code>
                                 </pre>
@@ -216,12 +216,12 @@ private void createDispatchDefect(FormElementBlock block) {
 
                 <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
                         data-bs-target="#collapseGraphQL">
-                    GraphQL Anpassung, Datenmodell Erweiterung
+                    GraphQL Anpassung, Datenmodell Erweiterung  - <span style="color: red">Doku Work in Progress </span>
                 </button>
                 <figure id="collapseGraphQL" class="collapse">
                     <figcaption>GraphQL Anpassung, Datenmodell Erweiterung</figcaption>
                     <p>Entitäten wie <a href="#FormElementDispatchJoin" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseTreeStructure"">FormElementDispatchJoin</a> wurden eingeführt,
+                                        data-bs-target="#collapseTreeStructure">FormElementDispatchJoin</a> wurden eingeführt,
                         um Beziehungen zwischen Formularelementen und Dispatchanfragen herzustellen und es der Anwendung zu
                         ermöglichen, von einer Dispatchanfrage zu den zugehörigen Formular-, Auftrags- und Planungsinformationen
                         zu navigieren.</p>
