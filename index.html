@@ -665,6 +665,26 @@
             <li><a href="https://github.com/nytud/emtsv">emts</a></li>
           </ul>
           <p>Konzepte erforscht: Natural Language Processing, Cosinus Änhlichkeit, Matrizen, Lineare Algebra</p>
+          <p>Meine Abschlussarbeit handelte vom Vergleich von Texten, indem diese in Matrizen umgewandelt und ein Ähnlichkeitsindex durch Multiplikation zweier Matrizen ermittelt wurde. Die Dokumente wurden als große Matrizen von Wortvorkommen dargestellt. Die Texte wurden aus dem Darkweb gescraped, die den Verkauf von rezeptpflichtigen Medikamenten betreiben. Es gab viele fertige Repositories und Bibliotheken für ähnliche Probleme in der englischen Sprache und anderen populären Sprachen, aber für Webseiten in ungarischer Sprache musste ich die Lösungen aus ihren Bausteinen erstellen.</p>
+
+          <p>Um Text zur Vergleich in Matrizen umzuwandeln, habe ich eine gängige Technik in der NLP, bekannt als Bag-of-Words (BoW) Modell, benutzt.</p>
+
+          <p>In diesem Modell wird jedes Dokument als Vektor in einem mehrdimensionalen Raum dargestellt, wobei jede Dimension einem einzigartigen Wort im Wortschatz entspricht. Der Wert in jeder Dimension (oder Zelle in der Matrix) repräsentiert die Häufigkeit oder Präsenz (binär) des Wortes im Dokument.</p>
+
+          <p>Um die Ähnlichkeit zwischen zwei Dokumenten (oder zwei Vektoren) zu messen, können verschiedene Methoden verwendet werden, wie z.B. Kosinusähnlichkeit, Euklidischer Abstand oder Jaccard-Ähnlichkeit.</p>
+
+          <p>Bei Sprachen wie Ungarisch, die nicht so viele fertige NLP-Ressourcen wie Englisch oder Deutsch haben, ist der Aufbau einer Lösung von Grund auf erforderlich:</p>
+
+          <ul>
+            <li>Textvorverarbeitung: Dies beinhaltet das Reinigen des Textes, den Umgang mit Sonderzeichen und den Umgang mit sprachspezifischen Elementen wie akzentuierten Zeichen, das extrahieren von Text aus html Dokument.</li>
+            <li>Tokenisierung: Zerlegen des Textes in einzelne Wörter oder Tokens.</li>
+            <li>Entfernung von Stoppwörtern: Entfernen von häufigen Wörtern, die nicht viel zur Bedeutung des Textes beitragen.</li>
+            <li>Stemming/Lemmatisierung: Reduzierung von Wörtern auf ihre Grundform.</li>
+            <li>Vektorisierung: Umwandlung des verarbeiteten Textes in numerische Vektoren.</li>
+            <li>Ähnlichkeitsvergleich: Klassifizierung, Clustering oder Ähnlichkeitsvergleich.</li>
+          </ul>
+
+          <p>Ich habe verschieden Methode erforscht und Vergleicht um herauszufinden welche Algorithmen würden das beste Ergebnis liefern, einmal mit der Referenzimplementierung von Bag of Words und einmal mit einem ML Model der NP(Noun Phrase) Strukturen erkennt und die Ähnlichkeitsvergleich mit den 3 verschiedenen Algorithmen ausgeführt und die Ergebnisse vergleicht und präsentiert. Dabei habe ich Python, emts, spaCy verwendet auf eine leistungsfähige EC2 Instanz mit einem Ubuntu AMI, die Berechnungen liefen für 2 Tage und dann habe ich die Ergebnisse in eine MySQL Datenbank importiert für die Auswertung, um Abfragen leicht betätigen zu können.</p>
         </div>
       </div>
     </div>
