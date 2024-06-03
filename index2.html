@@ -175,17 +175,17 @@ AND trunc(safe_to_date(attribs.value)) &lt;= trunc(:renewalReminderLeadTimeEnd);
         Die Oberfläche für die Benachrichtigungskonfiguration ermöglicht es dem Administrator, das Benachrichtigungsmodul flexibel anzulegen. Die Konfiguration erfolgt über XHTML und ist wie folgt definiert:
     </p>
     <script type="text/plain" class="language-xml">
-        <ui:composition xmlns:f="http://java.sun.com/jsf/core" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
-                        xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition xmlns:f="http://java.sun.com/jsf/core" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
 
-            <af:panelLabelAndMessage label="#{messages['app.notification.recertification.renewelReminderLeadTime']}:">
-                <af:inputText simple="true" value="#{obj.renewalReminderLeadTime}"
-                              readOnly="#{!formCtrl.editing}" styleClass="size80"/>
-                <f:facet name="end">
-                    <af:outputText value="#{messages['const.intervallUnit.DAY.plural']}"/>
-                </f:facet>
-            </af:panelLabelAndMessage>
-        </ui:composition>
+    <af:panelLabelAndMessage label="#{messages['app.notification.recertification.renewelReminderLeadTime']}:">
+        <af:inputText simple="true" value="#{obj.renewalReminderLeadTime}"
+                      readOnly="#{!formCtrl.editing}" styleClass="size80"/>
+        <f:facet name="end">
+            <af:outputText value="#{messages['const.intervallUnit.DAY.plural']}"/>
+        </f:facet>
+    </af:panelLabelAndMessage>
+</ui:composition>
     </script>
     <br>
     <p>
