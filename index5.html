@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Feature-Implementierung</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous"/>
+</head>
+
+<body>
+<div class="container">
+    <div class="row g-5">
+        <div class="col-md-8">
+            <h2>Durchlauf der Feature-Implementierung</h2>
+            <p>
+                Das System verwaltet Auftragspositionen, die wöchentlich geplant und ausgeführt werden. Manchmal können diese Auftragspositionen jedoch nicht ausgeführt werden, z.B. aufgrund schlechten Wetters. In solchen Fällen sollten diese Auftragspositionen automatisch storniert und aus dem Kalender entfernt werden.
+            </p>
+            <p>
+                Es wurde vorgeschlagen, einen neuen Status “Abgebrochen” für die Auftragspositionen einzuführen. Dieser Status würde für Auftragspositionen verwendet, die nicht bearbeitet wurden.
+            </p>
+            <p>
+                Die Implementierung dieses Features erfordert mehrere Schritte:
+            </p>
+            <pre>
+                <code class="language-java">
+public enum ProcessingStatus {
+    KEINE,
+    OFFEN,
+    IN_ARBEIT,
+    ABGEBROCHEN,
+    ABGESCHLOSSEN;
+}
+                </code>
+            </pre>
+            <p>
+                Der ProcessingStatus wurde mit dem Status “Abgebrochen” erweitert, damit die Auftragspositionen den abgebrochenen Zustand widerspiegeln können.
+            </p>
+            <pre>
+                <code class="language-java">
+@Entity
+public class Planning {
+    @Column(nullable = false)  
+    private boolean autoExpire;
+}
+                </code>
+            </pre>
+            <p>
+                Die Klasse Planning wurde mit dem Feld autoExpire erweitert. Die Planung entscheidet nun, ob die enthaltenen Auftragspositionen “ablaufen” oder nach dem “Fälligkeitsdatum” aufgeräumt werden.
+            </p>
+            <pre>
+                <code class="language-java">
+extend type Query {
+    autoConfiguration(planningId: NID!): AutoConfiguration!
+}
+                </code>
+            </pre>
+            <p>
+                Die GraphQL-Schnittstelle wurde erweitert, so dass die Startkonfiguration des Auftragskalenders ein weiteres Kontrollkästchen für das Feld autoExpire enthält.
+            </p>
+            <pre>
+                <code class="language-java">
+@Asynchronous  
+@QuartzTrigger(concurrent = false)  
+QuartzTriggerHandle startAssignments(@IntervalCron String cronExpression);
+                </code>
+            </pre>
+            <p>
+                Der QuartzScheduler führt nun einen Job cancelOverDueAssignments aus, der “überfällige” Auftragspositionen storniert.
+            </p>
+            <pre>
+                <code class="language-java">
+protected QuartzTriggerHandle execute(String cronExpression) {
+    return Lookup.stateless(GraphQLScheduleService.class).generateAssignments()
+}
+                </code>
+            </pre>
+            <p>
+                Die beiden Automatoren wurden zu AssignmentAutomator zusammengeführt. Es gibt nun eine einzige Methode execute, die generateAssignments aufruft.
+            </p>
+            <pre>
+                <code class="language-java">
+alter TABLE MNT_PLN_E add (  
+  AUTO_EXPIRE number(1,0) default 0 not null,
+);
+                </code>
+            </pre>
+            <p>
+                Ein Migrationsskript wurde erstellt, um das neue Feld zur Datenbank hinzuzufügen. Das Skript wurde gemäß der Namenskonvention auf dem Wiki benannt und fügt drei Dateien namens V2023_12_01_35_01__add_autoexpire_to_planning.sql zu drei Unterverzeichnissen (oracle, mssql, mariadb) hinzu.
+            </p>
+        </div>
+        <div class="col-md-4">
+            <h2>Autor</h2>
+            <p>
+                 Es wird empfohlen, mit den Grundlagen der Programmierung vertraut zu sein, um den Inhalt vollständig zu verstehen.
+            </p>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous"></script>
+</body>
+
+</html>
