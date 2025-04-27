@@ -1,717 +1,224 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Portfolio</title>
-  <link rel="stylesheet" href="css/prism.css"/>
-  <link rel="stylesheet" href="css/main.css" />
-  <link rel="stylesheet" href="css/pageLayout.css"/>
-  <link rel="stylesheet" href="css/table.css" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous" />
-  <style>
-    /* Custom styling to make tabs vertical */
-    .htabs {
-      flex-direction: column; /* Align tabs vertically */
-    }
-    .tab-content {
-      margin-left: 20px; /* Space between tabs and content */
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Abel Kecse</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/styles.css" rel="stylesheet">
 </head>
-
-<body>
-  <ul class="nav nav-tabs" id="myTab" role="tablist">
-    <li class="nav-item" role="presentation">
-      <a class="nav-link" href="index.html">
-        Home
-      </a>
-    </li>
-    <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-        Java
-      </a>
-      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <li><a class="nav-link" href="index3.html">
-          Dynamische Attribute
-        </a></li>
-        <li><a class="nav-link" href="index2.html">
-          Gasfernleitungsinfrastruktur Rezertifizerung
-        </a></li>
-      </ul>
-    </li>
-    <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-        ElasticSearch
-      </a>
-      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <li>
-          <a class="nav-link" href="https://github.com/CsehAbel/HibernateProject">SQL, Hibernate, Java</a>
-        </li>
-        <li>
-          <a class="nav-link" href="https://github.com/CsehAbel/SumELK">ElasticSearch, Checkpoint API, Python, Pandas, SQL</a>
-        </li>
-        <li>
-          <a class="nav-link" href="https://github.com/CsehAbel/SGRE">Python, Pandas, SQL</a>
-        </li>
-      </ul>
-    </li>
-    <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-        SQL, MySQL, MSSQL, PLSQL
-      </a>
-      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <li>
-          <a class="nav-link" href="https://github.com/CsehAbel/HibernateProject">SQL, Hibernate, Java</a>
-        </li>
-        <li>
-          <a class="nav-link" href="https://github.com/CsehAbel/SumELK">ElasticSearch, Checkpoint API, Python, Pandas, SQL</a>
-        </li>
-        <li>
-          <a class="nav-link" href="https://github.com/CsehAbel/SGRE">Python, Pandas, SQL</a>
-        </li>
-      </ul>
-    </li>
-    <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-        Amazon Web Services
-      </a>
-      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <li>
-          <div class="nav-link">
-            <a  href="https://www.credly.com/badges/20182408-1268-4303-b28c-c22ffb63ddd7/public_url">Developer Associate</a> <a href="https://d1.awsstatic.com/training-and-certification/docs-dev-associate/AWS-Certified-Developer-Associate_Exam-Guide.pdf">...</a>  
-          </div>
-        </li>
-        <li>
-          <div class="nav-link">
-            <a href="img/Certs/ArchitectAssociate.jpg">Solution Architect Associate</a> <a href="https://d1.awsstatic.com/training-and-certification/docs-sa-assoc/AWS-Certified-Solutions-Architect-Associate_Exam-Guide.pdf">...</a>
-          </a>
-          </div>
-        </li>
-        <li>
-          <div class="nav-link"><a  href="img/Certs/CloudPractitioner.jpg">Cloud Practitioner</a> <a href="https://d1.awsstatic.com/training-and-certification/docs-cloud-practitioner/AWS-Certified-Cloud-Practitioner_Exam-Guide.pdf">...</a>
-          </a>
-        </div></li>
-        <li>
-          <div class="nav-link">
-            <a  href="./artikeln.html">Artikeln veröffentlicht</a>
-          </div>
-          
-        </li>
-      </ul>
-    </li>
-    <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown4" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-        React
-      </a>
-      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <li><a class="nav-link" href="">
-          Remix
-        </a></li>
-        <li><a class="nav-link" href="">
-          Redux
-        </a></li>
-      </ul>
-    </li>
-  </ul>
-
-  <div class="containers mt-3">
-    <div class="row">
-      <div class="col-md-2">
-        <ul class="nav nav-tabs htabs">
-          <li class="nav-item">
-            <a class="nav-link active" data-bs-toggle="tab" href="#geomagic_tab">Geomagic</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" href="#siemens_tab">Siemens Separation Services</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" href="#linux_tab">Deutsche Telekom IT Solutions - Linux Administrator</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" href="#cisco_tab">Deutsche Telekom IT Solutions - Netzwerk Administrator</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" href="#ziehl_abegg_tag">Ziehl-Abegg - Praktikant</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="tab" href="#abschluss_tab">Abschlussarbeit - Student</a>
-          </li>
-        </ul>
-      </div>
-    <div class="col-md-10">
-      <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="geomagic_tab" role="tabpanel" aria-labelledby="home-tab">
-          <div>
-            Eine kleine Kostprobe aus meinen Projekten:
-          </div>
-          <div>
-            Als Software-Entwickler bei Geomagic GmbH war ich verantwortlich für das Integrieren von Camunda BPMN-Prozessen. Ich reduzierte die Menge an archivierten Daten nach Abschluss eines Prozesses und seiner zugehörigen Formulare und fügte fehlende Datenbank-Constraints hinzu, um die Datenintegrität beim Löschen von Formularen zu gewährleisten. Außerdem erweiterte ich die Kalenderfunktionalität für die Stornierung von Gasrohrüberflügen und entwickelte eine umfassende Lösung für allgemeine Terminabsagen. Ich automatisierte die Unterbrechung und Bereinigung von Hintergrundprozessen. Dabei setzte ich Technologien u.a. wie GraphQL, Camunda BPM, Hibernate, MariaDB, OracleDB, MSSQL, JBoss, Quartz, Aspose, Message Bundles für Lokalisierung, Flyway, SVN, Git, GitLab und Jira ein.
-          </div>
-          <div>
-            <h2><a href="index2.html">Kundenspezifische Anpassung für Nowega GmbH implementiert</a></h2>
-            <table>
-              <tr>
-                <td>Rolle</td>
-                <td>Software Developer, Geomagic GmbH</td>
-              </tr>
-              <tr>
-                <td>Tätigkeiten</td>
-                <td>
-                  <ul>
-                    <li>Administrations-Oberfläche erweitert mit der Möglichkeit, Benachrichtigungen einzuplanen für die Fernleitungs-Infrastruktur-Instandhaltung.</li>
-                    <li>Zertifikatserneuerungserinnerung für Infrastruktur-Bestandteile ermöglicht</li>
-                    <li>Konfigurierbare Erinnerungserstellung integriert mit Berechtigungsüberprüfung und E-Mail-Templatingssystem</li>
-                  </ul>
-                </td>
-              </tr>
-              <tr>
-                <td>Besonderheiten</td>
-                <td>
-                  <ul>
-                    <li>Die neue Funktionalität der Administrations-Oberfläche dem Kunden präsentiert und nachträgliche Wünsche erfüllt</li>
-                    <li>Integrations-Test</li>
-                    <li>Refinement vor der Implementierung mit Application Specialist und Kunde</li>
-                    <li>Jira ständig aktualisiert anhand der verändernden Kunden-Wünsche für das Einholen von Übernahmebestätigung vom Kunden</li>
-                  </ul>
-                </td>
-              </tr>
-              <tr>
-                <td>Technologien</td>
-                <td>
-                  <ul>
-                    <li>Hibernate, MariaDB, OracleDB, MSSQL, JBoss</li>
-                    <li>JSF</li>
-                    <li>Flyway, SVN, Diffing Tools, Jira</li>
-                  </ul>
-                </td>
-              </tr>
-            </table>
-            <h2><a href="index3.html">Sicherheitsmanagement für Erdgas Münster und Nowega GmbH</a></h2>
-            <table>
-              <tr>
-                <td>Rolle</td>
-                <td>Software Developer, Geomagic GmbH</td>
-              </tr>
-              <tr>
-                <td>Tätigkeiten</td>
-                <td>
-                  <ul>
-                    <li>Warnmeldungen entwickelt für die Sicherheitsbeauftragten im Dispatching-Zentrum</li>
-                    <li>Konfigurierbare Reporting mit flexibler Einplanung "CronJob" (QuartzJob)</li>
-                    <li>Neue Reporting Jar Datei gebaut für das Erstellen von Excel E-Mail-Anhänge</li>
-                    <li>Jedes Unternehmen benötigte individuelle Warnungen abhängig von den spezifischen Vorfällen, die in ihrem Verantwortungsbereich lagen.</li>
-                  </ul>
-                </td>
-              </tr>
-              <tr>
-                <td>Besonderheiten</td>
-                <td>
-                  <ul>
-                    <li>Komponenten entwickelt, auf die man zurückgreifen kann, für das schnelle Implementieren vom neuen Kundenbranch-Feature für verschiedene Kunden gleichzeitig</li>
-                    <li>Modularer Aufbau des neuen Features, damit es in den Produktkern zurückfließen kann und mit dem neuen Release auch für andere Kunden schnell implementiert werden kann</li>
-                  </ul>
-                </td>
-              </tr>
-              <tr>
-                <td>Technologien</td>
-                <td>
-                  <ul>
-                    <li>Hibernate, MariaDB, OracleDB, MSSQL, JBoss</li>
-                    <li>Quartz, Aspose, Message Bundles für Lokalisation</li>
-                    <li>Flyway, SVN, Diffing Tools, Jira</li>
-                  </ul>
-                </td>
-              </tr>
-            </table>
-              <h2>Fehlerbehebung und Erweiterung des Produktkerns</h2>
-              <table>
-                <tr>
-                  <td>Rolle</td>
-                  <td>Software Developer, Geomagic GmbH</td>
-                </tr>
-                <tr>
-                  <td>Tätigkeiten</td>
-                  <td>
-                    <ul>
-                      <li>Entkopplung von Formulare beim Schließen eines BPMN-Prozesses und das automatische Löschen von unnötigen Referenzen</li>
-                      <li>Verringerung der Menge der archivierten Daten jedes Mal, wenn ein Prozess (und die damit verbundenen Formulare) abgeschlossen wird</li>
-                      <li>Hinzufügen fehlender Datenbank-Constraints zur Sicherstellung der Datenintegration beim Löschen von Formularen</li>
-                    </ul>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Besonderheiten</td>
-
-                  <td><ul>
-                    <li>Verwendung des Visitor-Patterns, Nachreichen von Foreign Key Constraints</li>
-                  </ul></td>
-                </tr>
-                <tr>
-                  <td>Technologien</td>
-                  <td>
-                    <ul>
-                      <li>Hibernate, MariaDB, OracleDB, MSSQL, JBoss</li>
-                      <li>Flyway, SVN, Diffing Tools, Jira</li>
-                    </ul>
-                  </td>
-                </tr>
-              </table>
-
-              <h2><a href="index5.html">Abbrechen von Auftragspositionen für Gascade Gastransport GmbH - <span style="color: red">Doku Work in Progress </span></a></h2>
-              <table>
-                <tr>
-                  <td>Rolle</td>
-                  <td>Software Developer, Geomagic GmbH</td>
-                </tr>
-                <tr>
-                  <td>Tätigkeiten</td>
-                  <td>
-                    <ul>
-                      <li>Erweiterung des Terminplans mit Kalenderfunktion</li>
-                      <li>Automatisches Abbrechen von Gasleitungs-Befliegungsterminen</li>
-                      <li>Entwicklung einer umfassenden Erweiterung für allgemeines Abbrechen von Terminen</li>
-                      <li>Automatisches Unterbrechen und Aufräumen von Hintergrundprozessen</li>
-                      <li>Erweiterung des GraphQL-Schnittstelle/Java-Modells für das Anzeigen/Speichern des abgebrochenen Zustands</li>
-                      <li>Flyway-Skripte für OracleDB, MariaDB, MSSQL zum Hinzufügen neuer Prozess-Status zu den möglichen Optionen</li>
-                      <li>Hinzufügen einer Dialogoption für das automatische Abbrechen von Terminen bei Erstellung einer Terminserie</li>
-                    </ul>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Besonderheiten</td>
-                  <td><ul>
-                    <li>Teil des Produktkerns geworden</li>
-                  </ul>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Technologien</td>
-                  <td>
-                    <ul>
-                      <li>Hibernate, MariaDB, OracleDB, MSSQL, JBoss</li>
-                      <li>GraphQL, Camunda BPM</li>
-                      <li>Flyway, SVN, Diffing Tools, Jira</li>
-                    </ul>
-                  </td>
-                </tr>
-              </table>
-
-
-          </div>
+<body class="bg-light min-vh-100">
+    <header class="bg-white shadow-sm">
+        <div class="container py-3">
+            <nav class="navbar navbar-expand-md">
+                <div class="container-fluid p-0">
+                    <a href="#" class="navbar-brand text-primary fw-bold">Abel Kecse</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ms-auto gap-4">
+                            <li class="nav-item">
+                                <a href="https://www.linkedin.com/in/abelkecse/" class="text-decoration-none hover-blue text-secondary">Lebenslauf</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="old_index.html" class="text-decoration-none hover-blue text-secondary">Meine Projekte</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
         </div>
-        <div class="tab-pane fade" id="siemens_tab" role="tabpanel" aria-labelledby="home-tab">
-          <div>
-            <p>Unvollständige Liste einigen Projekten als Github Repo veröffentlicht:</p>
-            <ul>
-              <li>
-                <a href="https://github.com/CsehAbel/HibernateProject">SQL, Hibernate, Java</a>
-              </li>
-              <li>
-                <a href="https://github.com/CsehAbel/SumELK">ElasticSearch, Checkpoint API, Python, Pandas, SQL</a>
-              </li>
-              <li>
-                <a href="https://github.com/CsehAbel/SGRE">Python, Pandas, SQL</a>
-              </li>
-            </ul>
-            <h2>Siemens AG Separation Services</h2>
-            <table>
-              <tr>
-                <td>Zeitraum</td>
-                <td>02/2022 - 09/2023</td>
-              </tr>
-              <tr>
-                <td>Rolle</td>
-                <td>Softwareentwickler/Netzwerkadministrator, externer Berater - Trans4mation BS GmbH</td>
-              </tr>
-              <tr>
-                <td>Tätigkeiten</td>
-                <td>
-                  <ul>
-                    <li>Entwicklung einer Toolchain für das Gerätemanagement in über 40 Ländern</li>
-                    <li>Gewinnung von Kunden für das Projekt durch einen überzeugenden Proof-of-Concept-Prototyp</li>
-                    <li>Anforderungsverhandlungen, um die beteiligten Stakeholder zufriedenzustellen</li>
-                    <li>Verhandlung des Zugriffs und Bereitstellung des Datenquellenformats durch teilnehmende Stakeholder</li>
-                    <li>Entwicklung von Java-Schnittstellen für Syslog, ElasticSearch API und Checkpoint Management API</li>
-                    <li>Entwicklung einer Data Pipeline, die wöchentlich bis zur Übergabe 36 TB verarbeitet</li>
-                    <li>Vergleich von Änderungen und automatische Übertragung auf die Checkpoint-Geräte</li>
-                    <li>Entwicklung von Schnittstellen für interne REST-APIs wie ITAM/SNIC und Elastic's Filebeat mit Java und Cron Jobs</li>
-                  </ul>
-                </td>
-              </tr>
-              <tr>
-                <td>Besonderheiten</td>
-                <td>
-                  <ul>
-                    <li>Das Projekt wird als Dienstleistung verkauft</li>
-                    <li>Implementierung für die Siemens AG, Siemens Energy, Siemens Mobility, Siemens Logistics und Siemens Gamesa</li>
-                  </ul>
-                </td>
-              </tr>
-              <tr>
-                <td>Technologien</td>
-                <td>
-                  <ul>
-                    <li>Bucketing-Aggregationsabfragen, NoSQL, JSON-Verarbeitung</li>
-                    <li>Java, REST-API, MySQL, Entity Framework, Hibernate, Elastic</li>
-                    <li>Git Versionskontrolle</li>
-                  </ul>
-                </td>
-              </tr>
-            </table>
+    </header>
 
-          </div>
-
-          <div>
-            Als Netzwerk-Administrator habe ich die Analyse von WAN-Konfiguration FMO gegenüber CMO durchgeführt, und die Prüfung der Atos Solution Designs für die Migrationen, danach den Ergebnissen entsprechend vorbereitete ich die WAN-Konfiguration und die WAN-Orders, beauftragte die WAN-Routings der Standort-Netze, am Ende dokumentierte ich meine Tätigkeiten auf eine prozess-konform Art. Ich nahm Teil an den Rollouts, ungefähr zwei Mal wöchentlich habe ich die Vorbereitung und technische Begleitung der Separations-Calls gemacht. Ich bin fähig bestehende Prozesse kennenlernen, indem ich um Einweisungen bitte und die nötigen Tätigkeiten aneigne, beziehungsweise nach detaillierten Informationen verlange.
-          </div>
-          <div>
-            <h2>Siemens AG Separation Services</h2>
-            <table>
-              <tr>
-                <td>Zeitraum</td>
-                <td>01/2021 -</td>
-              </tr>
-              <tr>
-                <td>Rolle</td>
-                <td>Netzwerkadministrator, externer Berater - Trans4mation BS GmbH</td>
-              </tr>
-              <tr>
-                <td>Tätigkeiten</td>
-                <td>
-                  <ul>
-                    <li>Beratung bei Siemens-Projekten als Netzwerkadministrator</li>
-                    <li>Prüfung der Atos Solution Designs für Migrationen</li>
-                    <li>Anforderungsverhandlungen, um die beteiligten Stakeholder zufriedenzustellen</li>
-                  </ul>
-                </td>
-              </tr>
-              <tr>
-                <td>Besonderheiten</td>
-                <td>
-                  <ul>
-                    <li>Implementierung für die Siemens AG, Siemens Energy, Siemens Mobility, Siemens Logistics und Siemens Gamesa</li>
-                  </ul>
-                </td>
-              </tr>
-              <tr>
-                <td>Technologien</td>
-                <td>
-                  <ul>
-                    <li>MPLS, VPN, Routing</li>
-                  </ul>
-                </td>
-              </tr>
-            </table>
-          </div>
+    <main class="container py-4">
+        <!-- Hero Section -->
+        <div class="bg-white rounded shadow mb-5">
+            <div class="row order-swap g-0">
+                <!-- Image content (now on the left) -->
+                <div class="col-md-6 position-relative image-container">
+                    <img 
+                        src="img/argoworkflows_invert.png" 
+                        alt="Modern workspace" 
+                        class="img-fluid w-100 h-100 object-cover"
+                        style="min-height: 300px;"
+                    >
+                </div>
+                
+                <!-- Text content (now on the right) -->
+                <div class="col-md-6 p-4 p-md-5 d-flex align-items-center">
+                    <div class="position-relative z-index-1">
+                        <a href="argoworkflows.html" class="text-decoration-none">
+                            <h2 class="fs-1 fw-bold text-dark mb-4 hover-blue">ArgoCD- und Workflow-Integration um K8s-Job-Pipelines auf Remote Clustern auszuführen</h2>
+                        </a>
+                        <p class="text-secondary mb-4">
+                            Meine Implementierung orchestriert (mit GitLab als CI/CD-Trigger) containerisierte Workflows. Pro Kunde – sauber getrennt über dedizierte Namespaces und gesteuert durch dynamische Cluster Zugriffs Credentials. 
+                        </p>
+                        <p class="text-secondary mb-4">
+                            Von meinem Proof-of-Concept bis zum Einsatz in Produktivumgebungen. Schaue dir meine Architektur an, die sich bewährt hat.
+                            <div class="d-flex flex-wrap gap-2 mb-4">
+                                <span class="badge rounded-pill bg-primary-subtle text-primary">Helm Chart</span>
+                                <span class="badge rounded-pill bg-primary-subtle text-primary">GCP</span>
+                                <span class="badge rounded-pill bg-purple-subtle text-purple">Kubernetes</span>
+                                <span class="badge rounded-pill bg-primary-subtle text-primary">Python</span>
+                                <span class="badge rounded-pill bg-primary-subtle text-primary">Build Pipelines</span>
+                                <span class="badge rounded-pill bg-primary-subtle text-primary">GitLab</span>
+                                <span class="badge rounded-pill bg-success-subtle text-success">CI/CD</span>
+                                <span class="badge rounded-pill bg-success-subtle text-success">Migration</span>
+                            </div>
+                        </p>
+                        
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- wird aufgefüllt im onload.js anhand id="linux_tab" mit fetch index2.html-->
-        <div class="tab-pane fade" id="linux_tab" role="tabpanel" aria-labelledby="profile-tab">
-          <div>
-            <p>
-              In den letzten drei Semester habe ich über Red Hat Linux und Netzwerke gelernt. Als ich mein Studium
-              abgeschlossen habe, habe ich mich um einen Stelle als Linux Application Administrator beworben, und ich
-              habe mich entschieden meine Linux-Kenntnisse zu vertiefen.
-            </p>
-            <p>
-              Ich arbeitete bei der Deutsche Telekom Hungary Kft. in der Abteilung, die für Deutsche Post DHL Server
-              verantwortlich ist. Ich überwachte Linux-Servern, war im täglichen Betrieb aktiv, ich greifte sofort bei
-              Vorfällen ein. Ich überprüfte regelmäßige die Betriebsdokumentation und machte die Wartung der
-              Betriebsdokumentation. War professionelle Kontakte zu dem Kunde ( die Projektmanager bei der Post) und zu
-              Servicepartnern( zB. Accenture, die sind für SAP- Installationen zuständig auf der Server der Post),
-              machte Fehlerberichten und Reparaturen. Ich erledigte administrative Aufgaben, wie zum Beispiel useradd
-              mit Gruppen-Zuordnungen. Stellte Sudo-Rechte ein, machte Kernel-Updates. Überwache die Speicherplaetze
-              mithilfe von Scripten. Bei Bedarf startete ich httpd und tomcat neu, wenn die Anzahl des Threads begonnen
-              zu steigen. Ich installierte Applikation und aktualisierte Installationen, stellte sie ein, damit die
-              Applikationen die Server erreichen konnten wie zB. Dynatrace, Postfix.
-              Ich habe Erfahrungen gemacht mit Weblogic von der Firma Oracle und mit Oracle DB (patchen, Backups
-              erstellen und zurückspielen).
-            </p>
-            <h2>Deutsche Telekom Deutsche Post DHL</h2>
-            <table>
-              <tr>
-                <td>Zeitraum</td>
-                <td>01 2020 - 12 2020</td>
-              </tr>
-              <tr>
-                <td>Rolle</td>
-                <td>Linux Administrator</td>
-              </tr>
-              <tr>
-                <td>Tätigkeiten</td>
-                <td>
-                  <ul>
-                    <li>Überwachung der Linux-Servern, die im täglichen Betrieb aktiv sind</li>
-                    <li>Überprüfung und Wartung der Betriebsdokumentation</li>
-                    <li>Pflege professioneller Kontakte zu Kunden und Servicepartnern</li>
-                    <li>Verwaltung von Benutzern und Gruppen</li>
-                    <li>Einstellung von Sudo-Rechten und Durchführung von Kernel-Updates</li>
-                    <li>Überwachung der Speicherplätze und Verwaltung von LVM-Volumes und NFS-Mounts</li>
-                    <li>Überwachung und Neustart von httpd und tomcat</li>
-                    <li>Installation von Applikationen wie Dynatrace und Postfix</li>
-                    <li>Durchführung von Softwareaktualisierungen und Sicherheitskorrekturen</li>
-                    <li>Aktualisierung von Betriebssystemen und Oracle-Datenbanken</li>
-                    <li>Change und Incident Management auf ITIL konforme Art mit HP Service Manager</li>
-                    <li>Identifizierung und Behebung der Ursachen von Vorfällen - Problem Management</li>
-                    <li>Release und Deployment Management, Service Level Management auf ITIL konforme Art</li>
-                  </ul>
-                </td>
-              </tr>
-              <tr>
-                <td>Technologien</td>
-                <td>
-                  <ul>
-                    <li>HP Service Manager</li>
-                    <li>Linux, Bash, Python, SQL</li>
-                    <li>Apache, Tomcat, Postfix, Dynatrace</li>
-                    <li>Speicher: NFS, LVM</li>
-                  </ul>
-                </td>
-              </tr>
-            </table>
-            <br>
-            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCertITILV4">
-              ITIL V4 Zertifikat
-            </button>
-            <figure id="collapseCertITILV4" class="collapse">
-              <img src="/img/Certs/e-cert.jpg" />
-              <figcaption>
-                ITIL V4 Zertifikat
-              </figcaption>
-            </figure>
+
+        <!-- Content Section with Images and Updates -->
+        <div class="row g-4">
+            <!-- Left Column - Images with Captions -->
+            <div class="col-lg-8">
+                <h3 class="fs-4 fw-semibold text-dark mb-4">Meine Projekte</h3>
+                
+                <div class="row g-4">
+                    <!-- Project 1 -->
+                    <div class="col-md-6">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-img-top-wrapper">
+                                <img 
+                                    src="img/apigateway2.png" 
+                                    alt="Business meeting" 
+                                    class="card-img-top project-img"
+                                >
+                            </div>
+                            <div class="card-body">
+                                <a href="awsarchitekt.html" class="text-decoration-none">
+                                    <h4 class="fw-semibold text-dark mb-2 hover-blue">API Gateway - Drosselung, DDOS, Auth Konzept</h4>
+                                </a>
+                                
+                                <p class="text-secondary small">Neuauflage eines API Konzeptes um interne React SPAs zu hosten</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 2 -->
+                    <div class="col-md-6">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-img-top-wrapper">
+                                <img 
+                                    src="img/todo.png" 
+                                    alt="Digital workspace" 
+                                    class="card-img-top project-img"
+                                >
+                            </div>
+                            <div class="card-body">
+                                <h4 class="fw-semibold text-dark mb-2">DNS und CDN implementierung</h4>
+                                <p class="text-secondary small">DNS Domain Management und Content Delivery Network Integration.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 3 -->
+                    <div class="col-md-6">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-img-top-wrapper">
+                                <img 
+                                    src="img/todo.png" 
+                                    alt="Team collaboration" 
+                                    class="card-img-top project-img"
+                                >
+                            </div>
+                            <div class="card-body">
+                                <h4 class="fw-semibold text-dark mb-2">Kubernetes Cluster Troubleshooting und Tuning</h4>
+                                <p class="text-secondary small">Lösungen für häufige Leistungseinbrüche eines K8s Clusters.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 4 -->
+                    <div class="col-md-6">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-img-top-wrapper">
+                                <img 
+                                    src="img/todo.png" 
+                                    alt="Workspace design" 
+                                    class="card-img-top project-img"
+                                >
+                            </div>
+                            <div class="card-body">
+                                <h4 class="fw-semibold text-dark mb-2">CodeBuild/CodePipeline</h4>
+                                <p class="text-secondary small">CI/CD Buildserver abgelöst, Cloud-Migration.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             
-          </div>
+            <!-- Right Column - Latest Updates -->
+            <div class="col-lg-4">
+                <h3 class="fs-4 fw-semibold text-dark mb-4">Neueste Updates</h3>
+                
+                <div class="card shadow-sm p-4">
+                    <div class="d-flex flex-column gap-4">
+                        <!-- Update 1 -->
+                        <div class="border-bottom pb-3">
+                            <span class="small text-primary fw-medium">Jan 2025</span>
+                            <h4 class="fw-semibold text-dark mt-1 mb-2">CKAD</h4>
+                            <img src="img/ckad.png" height="50px;" />
+                            <p class="text-secondary small">Certified K8s Application Developer Zertifikat abgelegt. Configuration, Multi-Container Pods, Observability, Pod Design, Services & Networking, State Persistence, Secrets, Volumes, ConfigMaps, Docker </p>
+                            <a href="https://www.credly.com/badges/b4170661-aed3-4a12-bf80-688538663daf/linked_in_profile" class="text-primary small fw-medium text-decoration-none">Weiterlesen →</a>
+                        </div>
+                        
+                        <!-- Update 2 -->
+                        <div class="border-bottom pb-3">
+                            <span class="small text-primary fw-medium">Dez 2024</span>
+                            <h4 class="fw-semibold text-dark mt-1 mb-2">CKA</h4>
+                            <img src="img/cka.png" height="50px;" />
+                            <p class="text-secondary small">Lifecycle Management, Installation, Configuration & Validation, Core Concepts, Networking, Scheduling, Security, Cluster Maintenance, Logging / Monitoring, Storage, and Troubleshooting</p>
+                            <a href="https://www.credly.com/badges/c7d77676-4f23-40c6-a340-eb30da1af6d4/linked_in_profile" class="text-primary small fw-medium text-decoration-none">Weiterlesen →</a>
+                        </div>
+                        
+                        <!-- Update 3 -->
+                        <div class="border-bottom pb-3">
+                            <span class="small text-primary fw-medium">July 2024</span>
+                            <h4 class="fw-semibold text-dark mt-1 mb-2">Es geht wieder bergauf</h4>
+                            <p class="text-secondary small">Neue Stelle, in der ich meine Kenntnisse erweitern kann mit modernen DevOps Tools. Der Wechsel zu einem grösseren Unternehmen hat die Themen mit sich gebracht die gerade im Trend liegen: K8s, Container, CI/CD, Infrastructure as Code, GCP, Apache AirFlow, ArgoCD, Java, Python, Linux, Banking </p>
+                        </div>
+                        
+                        <!-- Update 4 -->
+                        <div>
+                            <span class="small text-primary fw-medium">Mai 2024</span>
+                            <h4 class="fw-semibold text-dark mt-1 mb-2">AWS Certified Developer</h4>
+                            <img src="img/awscp.png" height="50px;" />
+                            <img src="img/awssola.png" height="50px;" />
+                            <img src="img/awsdev.png" height="50px;" />
+                            <p class="text-secondary small">
+                                Erste Erfahrungen mit AWS gesammelt die sich im Nachhinein als sehr nützlich erwiesen hat. AWS service APIs, AWS CLI, SDKs, containers und deployment mit CI/CD pipeline.
+                            </p>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
         </div>
-        <!-- wird aufgefüllt im onload.js anhand id="cisco_tab" mit fetch index3.html-->
-        <div class="tab-pane fade" id="cisco_tab" role="tabpanel" aria-labelledby="contact-tab">
-          <div>
-            <p>
-              Ich bewarb mich um einer Praktikantentstelle bei der Firma Deutsche Telekom Hungary Kft., bei einer
-              ungarischen Filiale der Deutsche Telekom und arbeitete mit Cisco und Juniper Geräte.
-            </p>
-            <p>
-              Als Netzwerk Administrator musste ich die Gerätekonfiguration erstellen und sie hochspielen, Probleme
-              beheben die auf Routern mit Redundant Links auftreten mithilfe von telnet und ssh. Ich musste ports
-              überprüfen, die port Konfigurationen anpassen wie zB. VLAN zuordnen, media type einstellen, der deutschen
-              Technikern telefonisch Unterstützung bieten zB. wie man den Kundenswitch oder Kundenmoden an den Router
-              anschließen soll. Ich musste verschiedenen Leitungstypen der Telekom kennenlernen ua. 910, VIA, Ethernet,
-              L2TP 4g und Inzidente und Probleme beheben im Rahmen des ITIL Frameworks.
-            </p>
-            <p>
+    </main>
 
-            </p>
-            <h2>Deutsche Telekom Private Cloud Test and Turn-Up</h2>
-            <table>
-              <tr>
-                <td>Zeitraum</td>
-                <td>03 2019 - 01 2020</td>
-              </tr>
-              <tr>
-                <td>Rolle</td>
-                <td>Netzwerk Administrator Test and Turn-Up</td>
-              </tr>
-              <tr>
-                <td>Tätigkeiten</td>
-                <td>
-                  <ul>
-                    <li>Behebung von Problemen auf Routern mit redundanten Links mithilfe von Telnet und SSH</li>
-                    <li>Zuordnung von VLANs</li>
-                    <li>Einstellung des Medientyps</li>
-                    <li>Telefonische Unterstützung bei der Anschluss von Kundenschaltern oder Kundenmodems an Router
-                    </li>
-                    <li>Kennenlernen von Leitungstypen der Telekom, ua. 910, VIA, Ethernet, L2TP 4G</li>
-                  </ul>
-                </td>
-              </tr>
-              <tr>
-                <td>Technologien</td>
-                <td>
-                  <ul>
-                    <li>Cisco IOS, Juniper Junos</li>
-                    <li>DSL, Ethernet, L2TP, 4G</li>
-                    <li>Redundante Links: HSRP, VRRP, GLBP</li>
-                  </ul>
-                </td>
-              </tr>
-            </table>
-          </div>
+    <footer class="bg-dark text-white py-5">
+        <div class="container">
+            <div class="row gy-4">
+                <div class="col-md-3">
+                    <h3 class="fs-5 fw-semibold mb-3">devopsexpert.eu</h3>
+                    <p class="text-muted small"></p>
+                </div>
         </div>
-        <div class="tab-pane fade" id="ziehl_abegg_tag" role="tabpanel" aria-labelledby="contact-tab">
-          <div><h2><a href="dankeschon_spiel.html">HR - Mitarbeiterbewertungs - Web-App</a></h2>
-            <a href="https://github.com/CsehAbel/GewinnSpiel">github repo</a>
-            <table>
-              <tr>
-                <td>Zeitraum</td>
-                <td>06 2018 - 03 2019</td>
-              </tr>
-              <tr>
-                <td>Rolle</td>
-                <td>Software Developer Intern - Ziehl-Abegg Kft</td>
-              </tr>
-              <tr>
-                <td>Tätigkeiten</td>
-                <td>
-                  <ul>
-                    <li>HR - Mitarbeiterbewertungs - Web-App für Fabrikarbeitern</li>
-                    <li>Web-Applikation entwickelt für die HR-Abteilung mithilfe von Wildfly</li>
-                    <li>Ermöglichte die Beurteilung von ”Ausbildern” anhand Punkte, die die Neulinge erteilen konnten
-                    </li>
-                    <li>All die Fabrikarbeiter und Büroarbeitern mussten Zugang haben</li>
-                    <li>Schnittstelle für rfid Zutrittskontrolle- ,Zeiterfassungsystem bei der Firma, und Datenbank von
-                      der HR-Software
-                    </li>
-                  </ul>
-                </td>
-              </tr>
-              <tr>
-                <td>Besonderheiten</td>
-                <td>Betriebsgröße, Benutzerbasis 700 Mitarbeiter</td>
-              </tr>
-              <tr>
-                <td>Technologien:</td>
-                <td>
-                  <ul>
-                    <li>MSSQL (HR-Software), MYSQL (Zutritsskontrolle, Elektronische Türen/Toren, Aufzüge)</li>
-                    <li>Stored Procedures</li>
-                    <li>Context und Dependency Injection, Wildfly und JPA, JSF, JQuery</li>
-                  </ul>
-                </td>
-              </tr>
-            </table>
-          </div>
-          <div>
-            <a href="uvlacktrockner.html"><h2>UV-Lacktrockner- <span style="color: red">Doku Work in Progress </span>  </h2></a>
-            <a href="https://github.com/CsehAbel/UVLackierer2">github repo</a>
-          </div>
-          <div>
-            <a href="wiederstand.html"><h2>Chargenverfolgungs-App - <span style="color: red">Doku Work in Progress </span> </h2></a>
-            <table>
-              <tr>
-                <td>Zeitraum</td>
-                <td>09 2016 - 06 2017</td>
-              </tr>
-              <tr>
-                <td>Rolle</td>
-                <td>Software Developer Intern - Ziehl-Abegg Kft</td>
-              </tr>
-              <tr>
-                <td>Tätigkeiten</td>
-                <td>
-                  <ul>
-                    <li>QS - Transportkosten gespart</li>
-                    <li>Automatisierung einer Aufgabe der Qualitätssicherung</li>
-                    <li>Selbststudium von Java EE nach dem Erlernen von Java SE an der Universität</li>
-                    <li>Die Datenbanken der Fertigungsmaschinen ausgelesen</li>
-                    <li>Im GUI angezeigt auf Industrielle Touch PCs</li>
-                    <li>Eine Applikation entwickelt, die den Angestellten zeigt ob in der Fertigungskette defekte
-                      Halbfertigmotoren hinein gelangt sind
-                    </li>
-                  </ul>
-                </td>
-              </tr>
-              <tr>
-                <td>Besonderheiten</td>
-                <td>Die Applikation ist bis jetzt täglich im Gebrauch</td>
-              </tr>
-              <tr>
-                <td>Technologien</td>
-                <td>
-                  <ul>
-                    <li>MSSQL, MySQL, JDBC, JavaFX, MVC, Maven, Eclipse</li>
-                  </ul>
-                </td>
-              </tr>
-            </table>
-          </div>
+    </footer>
 
-          <div><h2>On Premise Infrastruktur Verwaltung</h2>
-            <table>
-              <tr>
-                <td>Zeitraum</td>
-                <td>09 2016 - 03 2019</td>
-              </tr>
-              <tr>
-                <td>Rolle</td>
-                <td>IT Support Intern - Ziehl-Abegg Kft</td>
-              </tr>
-              <tr>
-                <td>Tätigkeiten</td>
-                <td>
-                  <ul>
-                    <li>Windows PCs installiert, Active Directory Benutzern eingerichtet</li>
-                    <li>Installation, Konfiguration und Betrieb von Clients in einer Windows-Umgebung</li>
-                    <li>Installation von Windows-PCs während des Praktikums bei ZIEHL-ABEGG Kft</li>
-                    <li>File Share eingerichtet</li>
-                    <li>Rechte für ERP System verteilt</li>
-                    <li>Bestimmung der vorläufigen Berechtigungen des ERP-Systems auf der Grundlage von Logdateien</li>
-                    <li>Einrichtung von Scannern, Druckern und PCs, die im Betrieb verwendet werden</li>
-                    <li>5-wöchiger Aufenthalt in Künzelsau bei der Mutterfirma, Beschäftigung mit LAN-Geräten, was das
-                      Interesse an Computernetzwerken weckte
-                    </li>
-                  </ul>
-                </td>
-              </tr>
-              <tr>
-                <td>Besonderheiten</td>
-                <td>Anzahl der Büroarbeitern/Workstations: ~150</td>
-              </tr>
-              <tr>
-                <td>Technologien</td>
-                <td>
-                  <ul>
-                    <li>Windows Server, HP ProCurve</li>
-                  </ul>
-                </td>
-              </tr>
-            </table>
-          </div>
-        </div>
-        <div class="tab-pane fade" id="abschluss_tab" role="tabpanel" aria-labelledby="contact-tab">
-          <p>pdf herunterladen: <a href="img/Abschlussarbeit/szakdoli.pdf">Suche und Erkennung von Ähnlichkeiten zwischen Texten auf Webseiten mit Python</a> </p>
-          <p>repository: <a href="https://github.com/CsehAbel/Abschlussarbeit">Abschlussarbeit</a></p>
-          <p>Technologien verwendet:</p>
-          <ul>
-            <li>Python</li>
-            <li>Ubuntu</li>
-            <li>Amazon EC2</li>
-            <li>Bash</li>
-            <li>MySQL</li>
-            <li>spaCy</li>
-            <li><a href="https://github.com/nytud/emtsv">emts</a></li>
-          </ul>
-          <p>Konzepte erforscht: Natural Language Processing, Cosinus Änhlichkeit, Matrizen, Lineare Algebra</p>
-          <p>Meine Abschlussarbeit handelte vom Vergleich von Texten, indem diese in Matrizen umgewandelt und ein Ähnlichkeitsindex durch Multiplikation zweier Matrizen ermittelt wurde. Die Dokumente wurden als große Matrizen von Wortvorkommen dargestellt. Die Texte wurden aus dem Darkweb gescraped, die den Verkauf von rezeptpflichtigen Medikamenten betreiben. Es gab viele fertige Repositories und Bibliotheken für ähnliche Probleme in der englischen Sprache und anderen populären Sprachen, aber für Webseiten in ungarischer Sprache musste ich die Lösungen aus ihren Bausteinen erstellen.</p>
-
-          <p>Um Text zur Vergleich in Matrizen umzuwandeln, habe ich eine gängige Technik in der NLP, bekannt als Bag-of-Words (BoW) Modell, benutzt.</p>
-
-          <p>In diesem Modell wird jedes Dokument als Vektor in einem mehrdimensionalen Raum dargestellt, wobei jede Dimension einem einzigartigen Wort im Wortschatz entspricht. Der Wert in jeder Dimension (oder Zelle in der Matrix) repräsentiert die Häufigkeit oder Präsenz (binär) des Wortes im Dokument.</p>
-
-          <p>Um die Ähnlichkeit zwischen zwei Dokumenten (oder zwei Vektoren) zu messen, können verschiedene Methoden verwendet werden, wie z.B. Kosinusähnlichkeit, Euklidischer Abstand oder Jaccard-Ähnlichkeit.</p>
-
-          <p>Bei Sprachen wie Ungarisch, die nicht so viele fertige NLP-Ressourcen wie Englisch oder Deutsch haben, ist der Aufbau einer Lösung von Grund auf erforderlich:</p>
-
-          <ul>
-            <li>Textvorverarbeitung: Dies beinhaltet das Reinigen des Textes, den Umgang mit Sonderzeichen und den Umgang mit sprachspezifischen Elementen wie akzentuierten Zeichen, das extrahieren von Text aus html Dokument.</li>
-            <li>Tokenisierung: Zerlegen des Textes in einzelne Wörter oder Tokens.</li>
-            <li>Entfernung von Stoppwörtern: Entfernen von häufigen Wörtern, die nicht viel zur Bedeutung des Textes beitragen.</li>
-            <li>Stemming/Lemmatisierung: Reduzierung von Wörtern auf ihre Grundform.</li>
-            <li>Vektorisierung: Umwandlung des verarbeiteten Textes in numerische Vektoren.</li>
-            <li>Ähnlichkeitsvergleich: Klassifizierung, Clustering oder Ähnlichkeitsvergleich.</li>
-          </ul>
-
-          <p>Ich habe verschieden Methode erforscht und Vergleicht um herauszufinden welche Algorithmen würden das beste Ergebnis liefern, einmal mit der Referenzimplementierung von Bag of Words und einmal mit einem ML Model der NP(Noun Phrase) Strukturen erkennt und die Ähnlichkeitsvergleich mit den 3 verschiedenen Algorithmen ausgeführt und die Ergebnisse vergleicht und präsentiert. Dabei habe ich Python, emts, spaCy verwendet auf eine leistungsfähige EC2 Instanz mit einem Ubuntu AMI, die Berechnungen liefen für 2 Tage und dann habe ich die Ergebnisse in eine MySQL Datenbank importiert für die Auswertung, um Abfragen leicht betätigen zu können.</p>
-        </div>
-      </div>
-    </div>
-    </div>
-  </div>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-    crossorigin="anonymous"></script>
-  <script src="js/prism.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

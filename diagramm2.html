@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang=&quot;en&quot;>
+<head>
+    <meta charset=&quot;UTF-8&quot;>
+    <meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;>
+    <title>CI/CD Workflow Diagram</title>
+    <script src=&quot;https://cdn.tailwindcss.com&quot;></script>
+    <link href=&quot;https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap&quot; rel=&quot;stylesheet&quot;>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .diagram-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .node {
+            transition: all 0.3s ease;
+        }
+        .node:hover {
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+            transform: translateY(-2px);
+        }
+        .arrow {
+            stroke-dasharray: 6;
+            animation: dash 20s linear infinite;
+        }
+        @keyframes dash {
+            to {
+                stroke-dashoffset: 1000;
+            }
+        }
+        .solid-arrow {
+            transition: stroke-width 0.3s ease;
+        }
+        .solid-arrow:hover {
+            stroke-width: 2.5;
+        }
+        .tooltip {
+            visibility: hidden;
+            position: absolute;
+            background-color: #333;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            z-index: 100;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .node:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class=&quot;diagram-container&quot;>
+        <h1 class=&quot;text-3xl font-bold mb-8 text-center text-gray-800&quot;>CI/CD Workflow Architecture</h1>
+        
+        <div class=&quot;relative&quot; id=&quot;diagram&quot; style=&quot;height: 650px;&quot;>
+            <!-- GitLab Section -->
+            <div class=&quot;node absolute left-0 top-40 w-72 h-64 bg-amber-50 border-2 border-amber-400 rounded-lg p-4 shadow-md&quot;>
+                <div class=&quot;tooltip -mt-10&quot;>Source Code Repository</div>
+                <h2 class=&quot;text-2xl font-bold mb-4&quot;>GitLab</h2>
+                <div class=&quot;flex items-start space-y-6 flex-col&quot;>
+                    <div class=&quot;flex items-center&quot;>
+                        <svg class=&quot;w-10 h-10 mr-3&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;>
+                            <rect x=&quot;3&quot; y=&quot;3&quot; width=&quot;18&quot; height=&quot;18&quot; rx=&quot;2&quot; stroke=&quot;#333&quot; stroke-width=&quot;1.5&quot;/>
+                            <line x1=&quot;7&quot; y1=&quot;7&quot; x2=&quot;17&quot; y2=&quot;7&quot; stroke=&quot;#333&quot; stroke-width=&quot;1.5&quot;/>
+                            <line x1=&quot;7&quot; y1=&quot;11&quot; x2=&quot;17&quot; y2=&quot;11&quot; stroke=&quot;#333&quot; stroke-width=&quot;1.5&quot;/>
+                            <line x1=&quot;7&quot; y1=&quot;15&quot; x2=&quot;13&quot; y2=&quot;15&quot; stroke=&quot;#333&quot; stroke-width=&quot;1.5&quot;/>
+                        </svg>
+                        <span class=&quot;text-lg font-medium&quot;>App Directory</span>
+                    </div>
+                    <div class=&quot;flex items-center&quot;>
+                        <svg class=&quot;w-10 h-10 mr-3&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;>
+                            <rect x=&quot;3&quot; y=&quot;3&quot; width=&quot;18&quot; height=&quot;18&quot; rx=&quot;2&quot; stroke=&quot;#333&quot; stroke-width=&quot;1.5&quot;/>
+                            <line x1=&quot;7&quot; y1=&quot;7&quot; x2=&quot;17&quot; y2=&quot;7&quot; stroke=&quot;#333&quot; stroke-width=&quot;1.5&quot;/>
+                            <line x1=&quot;7&quot; y1=&quot;11&quot; x2=&quot;17&quot; y2=&quot;11&quot; stroke=&quot;#333&quot; stroke-width=&quot;1.5&quot;/>
+                            <line x1=&quot;7&quot; y1=&quot;15&quot; x2=&quot;13&quot; y2=&quot;15&quot; stroke=&quot;#333&quot; stroke-width=&quot;1.5&quot;/>
+                        </svg>
+                        <span class=&quot;text-lg font-medium&quot;>Workflow Directory</span>
+                    </div>
+                    <div class=&quot;text-lg font-medium ml-3 mt-2&quot;>.git-cli.yaml</div>
+                </div>
+            </div>
+
+            <!-- Central Cluster Section -->
+            <div class=&quot;node absolute left-1/2 top-0 transform -translate-x-1/2 w-[500px] h-[400px] border-2 border-gray-400 border-dashed rounded-lg p-6&quot;>
+                <div class=&quot;tooltip -mt-10&quot;>CI/CD Orchestration Environment</div>
+                <h2 class=&quot;text-2xl font-bold mb-6&quot;>Central Cluster</h2>
+                
+                <!-- ArgoCD Icon -->
+                <div class=&quot;absolute left-1/4 top-20 transform -translate-x-1/2&quot;>
+                    <svg class=&quot;w-16 h-16&quot; viewBox=&quot;0 0 80 80&quot; fill=&quot;none&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;>
+                        <circle cx=&quot;40&quot; cy=&quot;40&quot; r=&quot;36&quot; fill=&quot;#EE5F3C&quot;/>
+                        <circle cx=&quot;40&quot; cy=&quot;40&quot; r=&quot;30&quot; fill=&quot;#FFFFFF&quot;/>
+                        <circle cx=&quot;40&quot; cy=&quot;40&quot; r=&quot;24&quot; fill=&quot;#2C9CF4&quot;/>
+                        <path d=&quot;M40 16C26.745 16 16 26.745 16 40C16 53.255 26.745 64 40 64C53.255 64 64 53.255 64 40C64 26.745 53.255 16 40 16ZM40 56C31.163 56 24 48.837 24 40C24 31.163 31.163 24 40 24C48.837 24 56 31.163 56 40C56 48.837 48.837 56 40 56Z&quot; fill=&quot;#EE5F3C&quot;/>
+                    </svg>
+                    <div class=&quot;text-center font-semibold text-[#EE5F3C] mt-1&quot;>argoCD</div>
+                </div>
+
+                <!-- Kubernetes Icon -->
+                <div class=&quot;absolute right-1/4 top-20 transform translate-x-1/2&quot;>
+                    <svg class=&quot;w-16 h-16&quot; viewBox=&quot;0 0 80 80&quot; fill=&quot;none&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;>
+                        <path d=&quot;M40 12L15 25V55L40 68L65 55V25L40 12Z&quot; fill=&quot;#326CE5&quot;/>
+                        <path d=&quot;M40 20L25 28V44L40 52L55 44V28L40 20Z&quot; fill=&quot;white&quot;/>
+                        <path d=&quot;M40 12V20M15 25L25 28M65 25L55 28M15 55L25 44M65 55L55 44M40 68V52&quot; stroke=&quot;white&quot; stroke-width=&quot;2&quot;/>
+                        <path d=&quot;M32 36H48M32 40H48M32 44H42&quot; stroke=&quot;#326CE5&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot;/>
+                    </svg>
+                </div>
+
+                <!-- Workflow Box -->
+                <div class=&quot;absolute right-12 top-40 w-64 h-48 bg-gray-100 border border-gray-300 rounded-lg p-4&quot;>
+                    <div class=&quot;flex items-center mb-2&quot;>
+                        <svg class=&quot;w-8 h-8 mr-2&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;>
+                            <circle cx=&quot;12&quot; cy=&quot;5&quot; r=&quot;2&quot; fill=&quot;#333&quot;/>
+                            <circle cx=&quot;19&quot; cy=&quot;12&quot; r=&quot;2&quot; fill=&quot;#333&quot;/>
+                            <circle cx=&quot;12&quot; cy=&quot;19&quot; r=&quot;2&quot; fill=&quot;#333&quot;/>
+                            <circle cx=&quot;5&quot; cy=&quot;12&quot; r=&quot;2&quot; fill=&quot;#333&quot;/>
+                            <line x1=&quot;12&quot; y1=&quot;7&quot; x2=&quot;12&quot; y2=&quot;17&quot; stroke=&quot;#333&quot; stroke-width=&quot;1.5&quot;/>
+                            <line x1=&quot;7&quot; y1=&quot;12&quot; x2=&quot;17&quot; y2=&quot;12&quot; stroke=&quot;#333&quot; stroke-width=&quot;1.5&quot;/>
+                            <line x1=&quot;6.5&quot; y1=&quot;6.5&quot; x2=&quot;17.5&quot; y2=&quot;17.5&quot; stroke=&quot;#333&quot; stroke-width=&quot;1.5&quot;/>
+                            <line x1=&quot;17.5&quot; y1=&quot;6.5&quot; x2=&quot;6.5&quot; y2=&quot;17.5&quot; stroke=&quot;#333&quot; stroke-width=&quot;1.5&quot;/>
+                        </svg>
+                        <span class=&quot;text-lg font-medium&quot;>Workflow</span>
+                    </div>
+                    
+                    <div class=&quot;flex items-center mb-4 mt-4&quot;>
+                        <svg class=&quot;w-8 h-8 mr-2&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;>
+                            <path d=&quot;M12 3L3 7.5L12 12L21 7.5L12 3Z&quot; fill=&quot;#306998&quot;/>
+                            <path d=&quot;M3 7.5V16.5L12 21V12L3 7.5Z&quot; fill=&quot;#FFD43B&quot;/>
+                            <path d=&quot;M21 7.5V16.5L12 21V12L21 7.5Z&quot; fill=&quot;#306998&quot;/>
+                        </svg>
+                        <span class=&quot;text-lg font-medium&quot;>Python</span>
+                    </div>
+                    
+                    <div class=&quot;text-sm font-mono bg-gray-200 p-2 rounded&quot;>
+                        kubectl exec<br>
+                        kubectl cp
+                    </div>
+                </div>
+
+                <!-- Namespace Box -->
+                <div class=&quot;absolute left-12 top-[200px] w-36 h-12 bg-gray-100 border border-gray-300 rounded-lg flex items-center justify-center&quot;>
+                    <span class=&quot;text-base font-medium&quot;>Namespace 1</span>
+                </div>
+            </div>
+
+            <!-- Customer 1 Section -->
+            <div class=&quot;node absolute left-1/4 top-[450px] transform -translate-x-1/2 w-80 h-56 border-2 border-gray-400 rounded-lg p-4&quot;>
+                <div class=&quot;tooltip -mt-10&quot;>Customer Environment 1</div>
+                <h2 class=&quot;text-2xl font-bold mb-4&quot;>Customer 1</h2>
+                <div class=&quot;flex flex-col items-center&quot;>
+                    <svg class=&quot;w-16 h-16&quot; viewBox=&quot;0 0 80 80&quot; fill=&quot;none&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;>
+                        <path d=&quot;M40 12L15 25V55L40 68L65 55V25L40 12Z&quot; fill=&quot;#326CE5&quot;/>
+                        <path d=&quot;M40 20L25 28V44L40 52L55 44V28L40 20Z&quot; fill=&quot;white&quot;/>
+                        <path d=&quot;M40 12V20M15 25L25 28M65 25L55 28M15 55L25 44M65 55L55 44M40 68V52&quot; stroke=&quot;white&quot; stroke-width=&quot;2&quot;/>
+                        <path d=&quot;M32 36H48M32 40H48M32 44H42&quot; stroke=&quot;#326CE5&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot;/>
+                    </svg>
+                    <div class=&quot;text-xl font-semibold mt-2&quot;>Kubernetes Cluster</div>
+                    <div class=&quot;text-lg mt-1&quot;>Apps</div>
+                </div>
+            </div>
+
+            <!-- Customer 2 Section -->
+            <div class=&quot;node absolute right-1/4 top-[450px] transform translate-x-1/2 w-80 h-56 border-2 border-gray-400 rounded-lg p-4&quot;>
+                <div class=&quot;tooltip -mt-10&quot;>Customer Environment 2</div>
+                <h2 class=&quot;text-2xl font-bold mb-4&quot;>Customer 2</h2>
+                <div class=&quot;flex flex-col items-center&quot;>
+                    <svg class=&quot;w-16 h-16&quot; viewBox=&quot;0 0 80 80&quot; fill=&quot;none&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;>
+                        <path d=&quot;M40 12L15 25V55L40 68L65 55V25L40 12Z&quot; fill=&quot;#326CE5&quot;/>
+                        <path d=&quot;M40 20L25 28V44L40 52L55 44V28L40 20Z&quot; fill=&quot;white&quot;/>
+                        <path d=&quot;M40 12V20M15 25L25 28M65 25L55 28M15 55L25 44M65 55L55 44M40 68V52&quot; stroke=&quot;white&quot; stroke-width=&quot;2&quot;/>
+                        <path d=&quot;M32 36H48M32 40H48M32 44H42&quot; stroke=&quot;#326CE5&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot;/>
+                    </svg>
+                    <div class=&quot;text-xl font-semibold mt-2&quot;>Kubernetes Cluster</div>
+                    <div class=&quot;text-lg mt-1&quot;>Apps</div>
+                </div>
+            </div>
+
+            <!-- Arrows -->
+            <!-- GitLab to ArgoCD (Build Pipeline) -->
+            <svg class=&quot;absolute left-[270px] top-[160px]&quot; width=&quot;200&quot; height=&quot;20&quot; viewBox=&quot;0 0 200 20&quot; fill=&quot;none&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;>
+                <path class=&quot;arrow&quot; d=&quot;M0 10H190&quot; stroke=&quot;#666&quot; stroke-width=&quot;1.5&quot; stroke-dasharray=&quot;6&quot;/>
+                <path d=&quot;M190 10L180 5V15L190 10Z&quot; fill=&quot;#666&quot;/>
+                <text x=&quot;80&quot; y=&quot;8&quot; font-size=&quot;12&quot; fill=&quot;#666&quot;>Build Pipeline</text>
+            </svg>
+
+            <!-- ArgoCD to Kubernetes (solid arrow) -->
+            <svg class=&quot;absolute left-[350px] top-[80px]&quot; width=&quot;100&quot; height=&quot;20&quot; viewBox=&quot;0 0 100 20&quot; fill=&quot;none&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;>
+                <path class=&quot;solid-arrow&quot; d=&quot;M0 10H90&quot; stroke=&quot;#333&quot; stroke-width=&quot;1.5&quot;/>
+                <path d=&quot;M90 10L80 5V15L90 10Z&quot; fill=&quot;#333&quot;/>
+            </svg>
+
+            <!-- ArgoCD to Namespace (solid arrow) -->
+            <svg class=&quot;absolute left-[300px] top-[120px]&quot; width=&quot;20&quot; height=&quot;80&quot; viewBox=&quot;0 0 20 80&quot; fill=&quot;none&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;>
+                <path class=&quot;solid-arrow&quot; d=&quot;M10 0V70&quot; stroke=&quot;#333&quot; stroke-width=&quot;1.5&quot;/>
+                <path d=&quot;M10 70L5 60H15L10 70Z&quot; fill=&quot;#333&quot;/>
+            </svg>
+
+            <!-- Kubernetes to Workflow (solid arrow) -->
+            <svg class=&quot;absolute left-[420px] top-[120px]&quot; width=&quot;20&quot; height=&quot;80&quot; viewBox=&quot;0 0 20 80&quot; fill=&quot;none&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;>
+                <path class=&quot;solid-arrow&quot; d=&quot;M10 0V70&quot; stroke=&quot;#333&quot; stroke-width=&quot;1.5&quot;/>
+                <path d=&quot;M10 70L5 60H15L10 70Z&quot; fill=&quot;#333&quot;/>
+            </svg>
+
+            <!-- Namespace to Workflow (solid arrow) -->
+            <svg class=&quot;absolute left-[200px] top-[205px]&quot; width=&quot;100&quot; height=&quot;20&quot; viewBox=&quot;0 0 100 20&quot; fill=&quot;none&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;>
+                <path class=&quot;solid-arrow&quot; d=&quot;M0 10H90&quot; stroke=&quot;#333&quot; stroke-width=&quot;1.5&quot;/>
+                <path d=&quot;M90 10L80 5V15L90 10Z&quot; fill=&quot;#333&quot;/>
+            </svg>
+
+            <!-- Namespace to Customer 1 (dashed arrow with text) -->
+            <svg class=&quot;absolute left-[150px] top-[250px]&quot; width=&quot;20&quot; height=&quot;200&quot; viewBox=&quot;0 0 20 200&quot; fill=&quot;none&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;>
+                <path class=&quot;arrow&quot; d=&quot;M10 0V190&quot; stroke=&quot;#666&quot; stroke-width=&quot;1.5&quot; stroke-dasharray=&quot;6&quot;/>
+                <path d=&quot;M10 190L5 180H15L10 190Z&quot; fill=&quot;#666&quot;/>
+                <text transform=&quot;translate(20 100) rotate(90)&quot; font-size=&quot;12&quot; fill=&quot;#666&quot;>Access from environment variables</text>
+            </svg>
+
+            <!-- Namespace to Customer 2 (dashed arrow) -->
+            <svg class=&quot;absolute&quot; width=&quot;600&quot; height=&quot;600&quot; viewBox=&quot;0 0 600 600&quot; fill=&quot;none&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;>
+                <path class=&quot;arrow&quot; d=&quot;M350 250 V350 H500 V450&quot; stroke=&quot;#666&quot; stroke-width=&quot;1.5&quot; stroke-dasharray=&quot;6&quot;/>
+                <path d=&quot;M500 450L495 440H505L500 450Z&quot; fill=&quot;#666&quot;/>
+            </svg>
+        </div>
+    </div>

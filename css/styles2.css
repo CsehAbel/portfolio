@@ -1,0 +1,66 @@
+/* Base Styles */
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Custom colors for badges */
+.bg-purple-subtle {
+    background-color: #e9d5ff;
+}
+
+.text-purple {
+    color: #6b21a8;
+}
+
+/* Images */
+.project-hero-image {
+    height: 400px;
+    object-fit: cover;
+    width: 100%;
+}
+
+.project-card-img {
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Footer Links */
+.footer-link:hover {
+    color: #fff !important;
+}
+
+.footer-social {
+    font-size: 1.25rem;
+}
+
+.footer-social:hover {
+    color: #fff !important;
+}
+
+/* Project Content */
+.project-content ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+}
+
+/* Increase spacing and readability */
+@media (min-width: 768px) {
+    .container {
+        max-width: 1140px;
+    }
+}
+
+/* Improve spacing on mobile */
+@media (max-width: 767.98px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+    
+    .p-4 {
+        padding: 1rem !important;
+    }
+}

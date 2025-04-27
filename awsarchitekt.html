@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Abel Kecse</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/prism.css"/>
+</head>
+<body class="bg-light min-vh-100">
+    <header class="bg-white shadow-sm">
+        <div class="container py-3">
+            <nav class="navbar navbar-expand-md">
+                <div class="container-fluid p-0">
+                    <a href="#" class="navbar-brand text-primary fw-bold">Abel Kecse</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ms-auto gap-4">
+                            <li class="nav-item">
+                                <a href="https://www.linkedin.com/in/abelkecse/" class="text-decoration-none hover-blue text-secondary">Lebenslauf</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="text-decoration-none hover-blue text-secondary">Meine Projekte</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container py-4">
+        <div class="mb-4">
+            <a href="index.html" class="text-primary d-flex align-items-center text-decoration-none">
+                <i class="bi bi-chevron-left me-1 small"></i>
+                Zurück zu allen Projekten
+            </a>
+        </div>
+
+        <div class="bg-white rounded shadow-sm overflow-hidden mb-5">
+            
+            <div class="p-4 p-md-5">
+            <div class="project-content">
+                <h1 class="fw-bold mb-4">Backend Neuauflage</h1>
+                
+                <div class="d-flex flex-wrap gap-2 mb-4">
+                    <span class="badge rounded-pill bg-primary-subtle text-primary">Infrastructue as Code</span>
+                    <span class="badge rounded-pill bg-purple-subtle text-purple">DNS</span>
+                    <span class="badge rounded-pill bg-primary-subtle text-primary">CDN</span>
+                    <span class="badge rounded-pill bg-primary-subtle text-primary">HTTP Response Codes</span>
+                    <span class="badge rounded-pill bg-primary-subtle text-primary">Git</span>
+                    <span class="badge rounded-pill bg-success-subtle text-success">Migration</span>
+                </div>
+
+                <p class="text-secondary mb-4">
+                    Hochsichere, kostenoptimierte Serverless API mit AWS API Gateway und Lambda
+                </p>
+
+                <h2 class="fw-semibold mt-5 mb-3">Projektziele</h2>
+                <ul class="text-secondary mb-4">
+                    <li>Bestehende Java REST API abzuloesen fur eine bessere Wartung</li>
+                    <li>Kostenoptimierung und verbesserte Sicherheit durch Authentifizierung</li>
+                    <li>Schutz vor Missbrauch/DDoS und Cloud Kostenfallen</li>
+                </ul>
+
+
+                <p class="text-secondary mb-4">
+                    Es wird durch CloudFront exposed/erreichbar gemacht und hat mehrere Funktionen: 
+Es schützt die Lambda-HTTP-URLs, indem wir sie in dem Front-End Code anstelle der Lambda-HTTP-URLs den URL der API GW verwenden koennen, und ermöglicht die JWT-Authentifizierung von Lambdas/Routes. So dass alle andere Kliente, die die JWT Tokens nicht mitgeben mit den HTTP Requests einen 403 was dem Browesr besagt dass der User nicht befugt ist die HTPP-Anfrage zu senden.
+                </p>
+
+                
+                <p class="text-secondary mb-4">
+                    (HTTP API Gateways sind günstiger, aber schwieriger umzusetzen. Ich habe das Gefühl, Amazon lenkt die Aufmerksamkeit mit seiner Dokumentation so, dass man sich für die REST-Variante entscheidet. Es gibt eine Vielzahl von Beispielen auf ihrem GitHub-Account für die teurere REST-Variante, aber sehr wenige für HTTP. Allerdings erfährt man abgesehen von der mühsameren Implementierung keine Nachteile gegenüber REST-Gateways, was die Verfügbarkeit von Features angeht.)
+                </p>
+
+                <img src="img/apigateway2.png" height="500px">
+                <img src="img/AuthApiStack2.png" height="500px" >
+
+                <p class="text-secondary mb-4">
+                    API Drosselung
+                    Durch CloudWatch erlangt man die Fähigkeit, auch ohne WAF (was wiederum teurer ist) gegen DDoS vorzugehen. Die meisten Dokumente von AWS beschäftigen sich, wenn es um DDoS geht, mit der Verfügbarkeit der Applikation. Was mir aber Sorgen bereitet, ist meine Cloud-Rechnung.
+                </p>
+
+                <p class="text-secondary mb-4">
+                    Je nach Anwendungsart ist es klüger, einen DDoS-Angriff auszusitzen und Kunden über den Ausfall zu informieren, als all die Verantwortung und die damit einhergehenden Kosten für Hochverfügbarkeit zu übernehmen. Wir können die Requests Per Second beobachten und mit Lambda-Funktionen entsprechend darauf reagieren, z.B. indem wir das CloudFront-Deployment in extremen Fällen deaktivieren.
+
+                    Außerdem können wir selbst mit API Gateway an Stages verbundene Quotas erstellen, bestehend aus zwei Begrenzungen: burstLimit und rateLimit. burstLimit besagt, wie viele Requests wir gleichzeitig bedienen können, und rateLimit fügt dazu eine zeitliche Komponente hinzu: wie viele Requests pro Sekunde erlaubt sind. (Lies die Code Kommentare für ein besseres Verständnis.)
+                </p>
+
+                <p class="text-secondary mb-4">
+                    Scaffolding/Theoretisches Beispiel:
+                </p> 
+                <pre>
+                    <code class=" language-java">            
+    const authorizer = new cdk.aws_apigatewayv2_authorizers.HttpIamAuthorizer();
+
+    const authorizer = new cdk.aws_apigatewayv2_authorizers.HttpIamAuthorizer();
+    //create an API gateway "hello-api-gw" with a usage plan and a key
+    const api = new cdk.aws_apigatewayv2.HttpApi(this, 'HttpApi',{
+      defaultAuthorizer: authorizer,
+      apiName: 'hello-api-gw',
+      corsPreflight: {
+        //add the CloudFront domain with: npx ts-node util/addApiCorsPolicy.ts
+        allowOrigins: [VITE_DEV_URL,VITE_URL],
+        allowMethods: [cdk.aws_apigatewayv2.CorsHttpMethod.GET, cdk.aws_apigatewayv2.CorsHttpMethod.POST, cdk.aws_apigatewayv2.CorsHttpMethod.PUT,cdk.aws_apigatewayv2.CorsHttpMethod.OPTIONS,cdk.aws_apigatewayv2.CorsHttpMethod.HEAD, cdk.aws_apigatewayv2.CorsHttpMethod.DELETE],
+        allowHeaders: [
+          "Authorization",
+          "Content-Type",
+          "X-Amz-Date",
+          "X-Amz-Security-Token",
+          "X-Amz-User-Agent"
+        ],
+        allowCredentials: true,
+        maxAge: cdk.Duration.seconds(3000)
+      }
+    });
+    //specifying removalPolicy
+    api.applyRemovalPolicy(cdk.RemovalPolicy.DESTROY);
+
+    const jwtAuthorizer = new cdk.aws_apigatewayv2_authorizers.HttpJwtAuthorizer("JWTAuthorizer", `https://cognito-idp.${this.region}.amazonaws.com/${userPool.userPoolId}`, {
+      // A list of the intended recipients of the JWT. A valid JWT must provide an aud that matches at least one entry in this list.
+      jwtAudience: [userPoolClient.userPoolClientId], 
+      identitySource: ['$request.header.Authorization'] }
+    );
+
+    const readObjects_httpIntegration = new cdk.aws_apigatewayv2_integrations.HttpLambdaIntegration('readObjects-lambda-integration', readObjects_fn);
+
+    api.addRoutes({
+        path: '/chapters',
+        methods: [cdk.aws_apigatewayv2.HttpMethod.GET, cdk.aws_apigatewayv2.HttpMethod.POST],
+        integration: readObjects_httpIntegration,
+        authorizer: jwtAuthorizer
+    });
+                    </code>
+                </pre>
+            </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="bg-dark text-white py-5">
+        <div class="container">
+            <div class="row gy-4">
+                <div class="col-md-3">
+                    <h3 class="fs-5 fw-semibold mb-3">devopsexpert.eu</h3>
+                    <p class="text-muted small"></p>
+                </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Add interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+          
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+            tooltipTriggerList.forEach(el => new bootstrap.Tooltip(el));
+          
+            // Make boxes slightly interactive on hover
+            const interactiveElements = document.querySelectorAll('.gitlab-box, .workflow-box, .namespace-box, .customer-box');
+            
+            interactiveElements.forEach(element => {
+                element.addEventListener('mouseover', function() {
+                    this.style.transform = 'scale(1.02)';
+                    this.style.transition = 'transform 0.3s ease';
+                    this.style.boxShadow = '0 6px 12px rgba(0, 0, 0, 0.15)';
+                });
+                
+                element.addEventListener('mouseout', function() {
+                    this.style.transform = 'scale(1)';
+                    this.style.boxShadow = '';
+                });
+                
+                element.addEventListener('click', function() {
+                    // Add a subtle animation on click
+                    this.style.transform = 'scale(0.98)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1.02)';
+                    }, 100);
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 200);
+                });
+            });
+        });
+    </script>
+    <script src="js/prism.js"></script>
+</body>
+</html>
